@@ -1,0 +1,60 @@
+\section{Cryptography}
+\label{sec:cryptography}
+
+\subsection{Hashing}
+
+All applications of hash functions in this work will use secure hash functions as defined in \cite[p.~153-156]{lindell2014introduction}. For clarification, we will use the term \emph{message} for the input to a hash function and \emph{hash} as the output. In addition to fixed-length and deterministic outputs, the key property of secure hash algorithms is \textbf{collision resistance}. Collision resistance means that it is infeasible for any probabilistic polynomial-time algorithm to find two a message $m' \neq m$, so that $Hash(m') = Hash(m)$. An informal definition of a one-way, or preimage resistant, hash function is that if given a hash h, it is infeasible for a probabilistic polynomial time adversary to find a message m so that $Hash(m) = h$. It is implicit that collision resistant hash functions are also preimage resistant, as finding a collision given a hash is the same as finding the preimage of the hash. \cite[p.~156]{lindell2014introduction}
+
+Hash functions have many uses in various fields, but this paper will focus on the uses in content addressing and cryptography. Content addressing is used in distributed hash tables which is essential to many decentralized file sharing networks, including IPFS and Bittorrent. Cryptographic uses of hash functions in this paper will be about verifying message integrity, preserving immutability, and digital signatures. Hash functions are also essential to proof-of-work, as a hash with certain properties can be provably difficult to find. \cite{dwork1992pricing}
+
+\subsubsection{Verify message integrity with hashing}
+
+An example from file sharing will be used to demonstrate how to verify a message with hash functions. Bob wants file m, and Bob knows $h = hash(m)$. Alice sends Bob a message $m'$ she claims to be $m$, but Bob does not trust Alice. In order to verify that $m' = m$, Bob can calculate $h' = hash(m')$, and compare it to $h$. If $h = h'$ Bob can be certain that $m = m'$ without needing to trust Alice. 
+
+\subsubsection{Message authentication with hashing (HMAC)}
+
+Parties communicating over an insecure channel with a shared secret can use Message Authentication Codes (MAC) to prove integrity and authenticity of a message. \cite[p.~158--164]{lindell2014introduction}
+
+
+\subsubsection{Preserving immutability with hash functions}
+
+Hashes can be used to verify messages of arbitrary size when the verifier is able to compute the hash of the message. Data structures such as Merkle trees and blockchains use hashes to link separate pieces of information together, so that a verifier is able to verify the integrity of a message without calculating its hash all at once. 
+
+Let's use an example from blockchains to demonstrate this. A block of height h contains the hash of its parent, the block of height h-1. This makes the hash of a block dependent on its parent's hash, so that if a block of height h is known to be valid, all blocks of smaller height can be validated because of this linked relationship through hashes. 
+
+\subsubsection{Hashes as digital fingerprints}
+
+The hash of any digital representation of information, such as a file, is unique if the hash function is collision resistant. This enables the hash be used as an identifier, or fingerprint. This is useful in content addressing and resource lookup in distributed file systems. This concept is also useful for deduplication, as it provides a method for discovering identical files within a storage system \cite[p.~182-183]{lindell2014introduction}. 
+
+\subsubsection{Hashes as random oracles}
+% The uniform randomness of a hash is used by the routing system in DHTs like Chord and Kademlia. Is also relevant in some blockchain applications such as RANDAO and the Orchid network. 
+A cryptographic hash function has both preimage resistance and second preimage resistance. The implication of this is that no observer can know the message by seeing only the hash, or know the hash of a message without calculating it. An ideal cryptographic hash function would also have its range uniformly distributed with all inputs independent of each other. This is a stronger assumption than simply preimage and second preimage resistance, and is not formally proven by any hash algorithm \cite[p.~179-181]{lindell2014introduction}. Still, many applications rely on hash functions being random oracles for their security, including proof-of-work. An implication of all inputs being independent is that any change in an input to a hash function, even as small as a single bit changed, will result in a seemingly completely unrelated and different hash. If we also assume a uniform range, we can see that a hash function can act as a random oracle in that it can output a number within its range, each with equal probability, that is infeasible to know for anyone who has not previously calculated the hash. 
+
+\subsubsection{Hashes in commitment schemes}
+% Maybe the same as Hashes as random oracles.
+A party can publish the hash of a message at some time t to prove that it possessed the message at time t. The committing party does not need to reveal anything about the message if the assume the hash function is preimage resistant \cite[p.~187--189]{lindell2014introduction}. This concept can be used in commitment schemes \cite{brassard1988minimum} to create an unpredictable, but reproducible number that can be used as a seed to a pseudo-random function, which allows untrusting parties to agree on random numbers as in \cite{blum1983coin}.
+
+
+\subsection{Digital encryption}
+
+This is a wide and complicated field, so we will only briefly explain how digital encryption enables some secure applications.
+
+Digital encryption is realized by a set of algorithms $encrypt(M, k) \Rightarrow C$ and $decrypt(C, k) \Rightarrow M$. $M$ is a message, $C$ is a cipher and $k$ is a key. A message is securely encrypted if it is computationally unfeasible to decrypt the message without knowing $k$. Symmetric cryptography is when the same key is used for encryption and decryption, while asymmetric cryptography is when different keys are used for encryption and decryption. The former is typically used for secure communication over an insecure channel while the latter is used for a variety of applications that use digital signatures. 
+
+\subsubsection{Public and private key pairs}
+
+The Diffie-Hellman exchange makes it possible to perform a handshake (interactive secure key exchange) between parties over an insecure channel where they can securely exchange a secret key. Published in \cite{diffie1976new}, it was described as the beginning of a cryptographic revolution which enabled secure communication without secure key distribution channels. 
+
+In a public-key encryption scheme, a pair of keys are generated so that one can be used to decrypt messages that are encrypted by the other. The keys in the pair serve different roles; a public key is widely disseminated and is used to encrypt messages intended for the receiver who knows the corresponding secret key, the other key in the pair, which can decrypt the message. \cite[p.~370]{lindell2014introduction} This makes it possible for parties to communicate securely by only knowing each other's public key in advance, i.e. no secure key exchange in advance is necessary. 
+
+A secure network using public-key schemes has some scaling advantages as well. In a network of $n$ nodes where each node wishes to communicate securely and privately with any other node, the network would need to store $n$ public keys and $n$ private keys in aggregate. With a private-key scheme, there would have to be a key for each pair of nodes, i.e. one key for each edge in a fully connected graph of $n$ nodes, which is $(n-1)^2$ keys in aggregate. We see that the former scales linearly and the latter scales polynomially with regards to keys stored. 
+
+\subsection{Digital signatures}
+
+Digital signatures is a way to provide message authenticity, integrity and non-repudiation in public-key schemes. A message signed by Alice is a message encrypted by her private key. Anyone with her public key can decrypt the cipher and verify that it was encrypted by Alice's private key. This is made on the assumption that there is an expected output of the decryption, as decrypting a cipher not encrypted by Alice's private key is likely to output a seemingly random nonsensical message. 
+
+It's common to use a process involving hashing and signing to make this practical. Alice hashes a message intended for Bob. She signs the hash and encrypts the message appended with the signed hash (signature) with Bob's public key, and sends the resulting cipher to Bob. Bob can then decrypt the cipher with his private key. He decrypts the signature with Alice's public key, and hashes the message. If the hash is equal to the decrypted signature, he has verified that \emph{that message} was created and signed by Alice. 
+
+Integrity because any alteration of Alice's message would result in an invalid hash.
+Authenticity because only the owner of Alice's private key could have encrypted the hash of the message, and have Bob perform a successful verification. 
+Non-repudiation because Alice cannot deny that the signature is not the result of encrypting the hash of \emph{that message} with her private key. 

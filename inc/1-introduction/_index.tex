@@ -1,0 +1,68 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+A lottery can be defined as a random distribution of a prize fund to a set of participants, or random selection of a subset of winners from a larger set of participants to receive some privilege. A lottery is often associated with its use is gambling where one becomes a participant by contributing to a prize fund by buying a ticket, whereupon a set of winning tickets is randomly drawn and a part of the fund is redeemable by owning a winning ticket. Lotteries have also been used in important societal functions such as leader election in democratic governance \cite{sintomer_random_2010} or proof-of-stake systems, drafting of soldiers to war \cite{nixon_executive_1969}, randomized audit controls [Taiwan Uniform Invoice Lottery], and distribution of scarce goods [Shanghai license plates], or as a game used in conjunction with fundraising to a charitable cause. 
+
+Since the stakes in a lottery can be quite high, as with large cash prizes or being drafted to a war, it is important that the result is unpredictable and unbiased. For the lottery achieve its purpose of ultimately distributing the prize, it is important that there is consensus of the result, and that the rules are enforced. Achieving unbiased randomness and consensus is typically done in one of two ways: 1) auditing and public verification of every step of the protocol, i.e. paper tickets being sold and blindly drawn from a basket, as is common for small-scale charity lotteries, and 2) trust in a central authority to conduct the lottery fairly and according to the rules, which is typical for national lottos and government-initiated lotteries. Due to scalability issues, auditing and verification of the second type are often done by a third party such as government or industry inspectors.
+
+With the advent of the internet and peer-to-peer (P2P) online communications, it is natural to explore the possibility of porting lotteries to this domain. While lotteries that use trusted parties and/or centralized authorities can be ported to an internet setting, the subject of this review is internet based lotteries that minimize trust and centralization, which we call \emph{P2P lotteries}. Research has been done on lotteries and coin tosses in a distributed setting in relations to the problem of byzantine consensus \cite{broder_provably_1985}, and various lottery protocols make trade-offs in communication overhead, security models, speed, fault-tolerance, etc. Various breakthroughs in cryptography and distributed computing have been applied to lotteries such as delay functions \cite{goldschlag_publicly_1998}, weakly encrypted secrets \cite{syverson_weakly_1998}, shared decryption keys \cite{fouque_sharing_2001}, distributed hash tables \cite{grumbach_distributed_2017}, and symmetric bivariate polynomials \cite{xia_information_2019}. Of particular interest are P2P lotteries implemented on blockchain platforms such as Bitcoin and Ethereum, as they provide a platform for secure multiparty computing \cite{andrychowicz_secure_2014} and value transfer in a trustless manner not seen with different consensus mechanisms [Bitcoin backbone paper??]. Several designs of blockchain based lotteries have been proposed in peer-reviewed articles \cite{bartoletti_constant-deposit_2017} \cite{miller_zero-collateral_2017} \cite{andrychowicz_secure_2014} \cite{liao_design_2017} \cite{back_note_2014}, and others have been implemented as smart contracts \cite{ago_fairlotto_2018} \cite{noauthor_smartbillions_nodate} \cite{noauthor_satoshi_nodate}.
+
+Blockchain platforms with cryptocurrencies mark an important shift in p2p computing, as they make it possible to transfer value and arrive at global consensus without a trusted intermediary. Due to scripting capabilities of several blockchain platforms, it is also possible to implement a number of financial instruments and games involving money. There have been gambling and lottery applications on Bitcoin and Ethereum for some time, and the topic of lotteries has been discussed in the academic literature. One class of lotteries uses digital coin tosses organized in a tournament to fairly select a winner. This scheme can in theory support a large amount of participants while also maintaining a high degree of resistance from collusion and verifiability of the entire lottery process.
+
+A lottery of this sort has as far as we know been implemented as a proof-of-concept, but not been analyzed and discussed in detail. Applications of smart contracts have to cross a gap from theoretical soundness to practical feasibility. By analyzing an implementation in detail, measure its cost to deploy, and discuss its security and other issues, we hope to get a better understanding of lotteries on a blockchain.
+
+\section{Thesis statement}
+\label{sec:statement}
+
+Miller and Bentoc in \cite{miller_zero-collateral_2017} outline a fair lottery that can be implemented both on the Bitcoin platform and on other blockchains with a more expressive scripting language such as Ethereum. The authors note that an implementation of their lottery on Ethereum is significantly less complex and more scalable than the same scheme on Bitcoin. For this reason, as well as the fact that Ethereum has a rich ecosystem of developer tools and user interfaces that make smart contract applications accessible, we decided to implement a full version of the lottery on Ethereum. 
+
+Although there exist several lotteries on Ethereum already, to our knowledge none fulfill the security requirements of Miller and Bentov's lottery. The purpose of creating an implementation is to get some insight into the viability of the lottery in a practical sense. While we will discuss theoretical considerations for the lottery, we expect to discover new considerations related to security, usability, and performance with a working implementation. 
+
+What can we learn from implementing a lottery on Ethereum? What can we say about the security of such a lottery if implemented on a blockchain?
+
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Literature review}
+
+A systematic literature review on p2p lotteries was conducted prior to writing this thesis in order to place the work in the context of published literature. Sources were collected by conducting a keyword search in online databases for published academic papers. The results from the search were restricted to the fields of computer and information science, as there were many irrelevant hits from different fields. All papers that included a design of a distributed lottery were included in the review. Further relevant works were found in the reference list of papers found through the keyword search. 
+
+\begin{table}[h]
+\centering
+\caption{Keyword search on Scopus}
+\begin{tabular}{|l|l|l|l|}
+\hline
+
+term & hits & filtered hits & lottery designs \\ \hline
+Term 1 & 13 & 12 & 7 \\ \hline
+Term 2 & 44 & 20 & 14 \\ \hline
+
+\end{tabular}
+\end{table}
+\emph{Table of results from literature search. See terms below.}
+
+\begin{itemize}
+    \item Term 1: (bitcoin OR blockchain) AND (lottery OR lotteries) 
+    \item Term 2: (verifiable OR verifiability OR p2p OR "peer-to-peer" OR distributed) AND (lottery or lotteries)
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\caption{Designs of lottery schemes}
+\begin{tabular}{|l|l|l|l|}
+\hline
+
+from keyword search & from references & total \\ \hline
+19 & 6 & 25 \\ \hline
+
+\end{tabular}
+\end{table}
+
+\subsection{Data collection}
+
+A working implementation of a distributed lottery was implemented on a local version of the Ethereum blockchain. This is a proof-of-concept application that can be simulated and interacted with in order to collect data and get a sense of what a live implementation would look like. 
+We collected data of transaction costs necessary to set up a lottery of various sizes by measuring the gas usage of simulations. 
+We found the number of interactions a participant in the lottery is needed to have with the blockchain in order to complete the process successfully. By combining this with common threat models and security assumptions about blockchains, we conducted a detailed discussion on the viability of a large lottery on a blockchain.
+
+\subsection{Data analysis}
+

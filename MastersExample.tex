@@ -44,6 +44,9 @@
                 commentstyle=\color{darkgreen}\ttfamily,
 }
 
+% Include a custom lst highlighting for Solidity
+\input{solidity-highlighting.tex}
+
 
 %Typesetting of C++ but not always stable in titles etc...
 \newcommand{\CPP}[0]{{C\nolinebreak[4]\hspace{-.1em}\raisebox{.1ex}{\small\bf +\hspace{-.1em}+\ }}}
@@ -109,12 +112,8 @@
 \lstlistoflistings
 
 
-\include{inc/introduction} % includes latex files from the same directory
-\include{inc/packages} % could be called Methodology or methods or any filename 
-\include{inc/structure} % could be results
-\include{inc/implementation}
-\include{inc/discussion}
-\include{inc/conclusion}
+\input{inc/_index.tex}
+
 
 \ifthenelse{\boolean{HarvardCitations}}{%
 	\bibliographystyle{agsm} % used for Harvard style references. Names - Humanities & Interaction Design

@@ -1,0 +1,56 @@
+\section{Scalability}
+\label{sec:scalability}
+
+It's common for lotteries to have millions of participants. Their large scale is an important characteristic, so it's natural to explore the scalability of our implementation. While the Ethereum platform has no problem with having connections to participants all over the world, it has a limited amount of transactions that can be processed per time unit. Even if transaction costs can be overcome by making them low relative to ticket prices, the limit on transaction throughput will stay the same. The stakes involved in the lottery will also get higher the more participants join. This fact might create incentives for miners to censor transactions which is covered in \ref{sec:censorship}.
+
+\subsection{Transaction throughput}
+
+Our lottery has clearly defined limits for the amount of transactions that need to be made for each participant. The amount of transactions of each type and its average gas usage is listed in \ref{table:gas-usage}. Setting up the lottery requires $2N$ transactions, each participant joining takes one transaction, playing each match takes at most $4$ transactions, and the winner needs a single transaction to withdraw the prize. So the maximum amount of transactions for a successful lottery will be $7N-1$.  
+The time interval in which the transactions need to be made is important, as the intensity of transaction demand will vary during the lifecycle of the lottery. We expect a ticket purchasing period that lasts for several days where the demand for transactions will not be high per time unit. When the matches on the first level can be played, we have $N/2$ matches that all need to be interacted with at the same time. If the time interval between match phases of these matches is too low, the blockchain will not be able to handle all the transactions that need to be made. The demand for transactions after the first match will exponentially decrease for each level as the amount of matches is halved for each level in the tournament tree.
+
+The amount of participants is $2^L$ and there are $2^{l-1}$ matches for each level if we count $l$ from $L$ at the first level matches to $1$ for the final match. The commit phase and reveal phase for each match require two transactions each. The amount of transactions needed for each phase at each level will then be $phase_{l}=2 \cdot 2^{l-1}=2^l$ – one for each remaining player. Ethereum has a transaction throughput capacity of some amount of transactions per block $tpb$. Since blocks are mined on average at a fixed rate, transactions per block is equivalent to transactions per time unit.
+Each phase lasts for a number of blocks $td$ which is set when each match contract is deployed. For it to be theoretically possible to perform all the transactions for each match, $td$ must be set so that $td > \frac{2^{l}}{tpb}$.
+
+Ethereum currently has about $150$ transactions per block. Using this value for $tpb$, we can chart some values of what $td$ ought to be for various amounts of participants.
+
+\begin{table}[h]
+\centering
+\caption{Estimates of $td$ if all transactions on the blockchain are used for our lottery.}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+
+N & td & td in s & td in m & td in h \\ \hline
+256 & 2 & 30 & 0,5 & 0,01 \\ \hline
+1024 & 7 & 105 & 1,8 & 0,03 \\ \hline
+4096 & 28 & 420 & 7,0 & 0,12 \\ \hline
+16384 & 110 & 1650 & 27,5 & 0,46 \\ \hline
+65536 & 437 & 6555 & 109,3 & 1,82 \\ \hline
+262144 & 1748 & 26220 & 437,0 & 7,28 \\ \hline
+1048576 & 6991 & 104865 & 1747,8 & 29,13 \\ \hline
+
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Estimates of $td$ if 10\% of the transactions on the blockchain are used for our lottery.}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+
+N & td & td in s & td in m & td in h \\ \hline
+256 & 18 & 270 & 4,5 & 0,08 \\ \hline
+1024 & 69 & 1035 & 17,3 & 0,29 \\ \hline
+4096 & 274 & 4110 & 68,5 & 1,14 \\ \hline
+16384 & 1093 & 16395 & 273,3 & 4,55 \\ \hline
+65536 & 4370 & 65550 & 1092,5 & 18,21 \\ \hline
+262144 & 17477 & 262155 & 4369,3 & 72,82 \\ \hline
+1048576 & 69906 & 1048590 & 17476,5 & 291,28 \\ \hline
+
+\end{tabular}
+\end{table}
+
+The most realistic scenario is that only a small ratio of all the transactions in a block are used for the lottery. We also see that for a lottery of any size, there will probably be quite high demand for transactions, which will in turn raise gas prices. This has implications for what the minimum viable ticket price should be, as it cannot be assumed that the gas price will be low for the first level of the lottery unless $td$ is very high.
+
+Although $td$ can be set arbitrarily high, we probably don't want the lottery to drag on for weeks before a winner is determined. It seems like the lottery will face scalability issues in the order of 100000s or from $2^{17}$ participants if we want to complete it within days. The number of transactions needed will decrease exponentially with higher levels, so the first two levels will require 75\% of the total time of the playing phase. 
+
+There are plans for Ethereum to increase the number of transactions it can handle by implementing proof-of-stake and sharding. While this might make our lottery capable of handling more participants, we don't know whether such a change in the protocol might introduce other issues that makes the lottery less scalable in other ways.
