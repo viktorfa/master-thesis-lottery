@@ -3,6 +3,8 @@
 
 During the implementation we discovered some interesting possibilities for optimization and slightly different designs to the lottery. One of these, the two types of match contracts, was implemented and tested, but we chose to limit our experimentation to keep the project manageable. This section will introduce some tweaks that might make the lottery more secure and more scalable.
 
+\todo{This section is for the most part notes to myself at this point.}
+
 \subsection{Off-chain negotiation of coin tosses}
 There is a possibility to resolving the digital coin tosses off-chain. When both parties in the digital coin toss have made their commitments to the blockchain, the result is determined, as there is only one secret that can be validated for that commitment. Instead of both parties actually revealing their secret on-chain, the parties can show each other their secrets through some other communication channel or a bulletin board. The parties will then be able to see who will win the digital coin toss if they both proceed to reveal it on the blockchain. Because of the timeout condition, the losing party can save some transaction costs by "giving up" and avoid making the reveal transaction. The other party, who would have won the digital coin toss if both had revealed their secret, makes their reveal transaction and will then win because the other party has timed out.
 
