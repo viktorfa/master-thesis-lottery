@@ -32,8 +32,9 @@ In order to set up a valid lottery, the master contract and match contracts need
 The simulation code consists of two test suites. The first does the routine a lottery organizer needs to do in order to set up a lottery, which is creating and deploying the master contract and all match contracts. The second does all of what the first does in addition to simulating the lottery being played. In the second suite, players join by making deposits and then play each level of the tournament until one player is left as winner and withdraws the prize.
 The time elapsed and gas used is recorded for each simulation for analysis.
 
-\todo{Should remove comments and maybe some code from these listings if they are not in the appendix.}
+These listings have been truncated somewhat and are not necessarily compilable code. See the Github repository and appendix for full working code.
+
 \lstinputlisting[language={Solidity}, caption={Lottery master contract}, label={lst:LotteryMaster.sol}]{listings/LotteryMaster.sol}
-\lstinputlisting[language={Solidity}, caption={Lottery abstract match contract}, label={lst:AbstractLotteryMatch.sol}]{listings/AbstractLotteryMatch.sol}
+\lstinputlisting[language={Solidity}, caption={Common code for lottery match}, label={lst:CommonMatchCode.sol}]{listings/CommonMatchCode.sol}
 \lstinputlisting[language={Solidity}, caption={Lottery first level match contract}, label={lst:FirstLevelMatch.sol}]{listings/FirstLevelMatch.sol}
 \lstinputlisting[language={Solidity}, caption={Lottery internal match contract}, label={lst:InternalMatch.sol}]{listings/InternalMatch.sol}
