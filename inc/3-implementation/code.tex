@@ -1,11 +1,9 @@
 \section{Code}
 \label{sec:code}
 
-The only smart contracts used in the lottery are the master contract and match contracts which are implemented as Solidity programs. Solidity is a high level language that compiles to EVM bytecode which again can be deployed as smart contracts on the Ethereum blockchain.
+The only smart contracts used in the lottery are the master contract and the two types of match contracts – first level match contracts and internal match contracts, all of which are implemented as Solidity programs. Solidity is a high level language that compiles to EVM bytecode. Deploying a smart contract on Ethereum is done by making a transaction with the contract's compiled. A deployed contract is identified by a unique address that is assigned when the deployment transaction is made.
 
-Since setting up the lottery requires a master contract, many individual match contracts that are aware of each other, all in a multi-step process, this is done with a script that constructs the required contracts with correct parameters. We also have code that do unit tests and integration tests on the contracts and setup code.
-
-Lastly, we have clients that makes it easy for lottery players and a lottery organizer to interact with the lottery application. The combination of smart contracts and these clients form a so called Dapp which is accessed in a web browser.
+Setting up the lottery is a multi step process that must happen in a specific order. First, the master contract needs to be deployed, then the first level match contracts which are all initialized with the address of the master contract are deployed. Internal match contracts from the same level in the tournament tree can be deployed at the same time, but match contracts of each level need a reference to matches from the previous level, which means matches from each level must be deployed in sequence. In order to manage this process, we have made a script to automate it. The smart contracts and deployment scripts also have associated unit tests and a simulation suite.
 
 \subsection{Master contract}
 \texttt{LotteryMaster} is the smart responsible for registering participants, taking deposits, and distributing the prize. It serves as a central hub in the lottery that all players must interact with. Whoever deploys this contract is the lottery organizer, and is the only account which can initialize the lottery by setting the final match. 

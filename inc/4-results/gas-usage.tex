@@ -4,7 +4,7 @@
 \begin{table}[h]
 \centering
 \caption{Average gas usage from simulation.}
-\label{table:gas-usage}
+\label{tab:gas-usage}
 \begin{tabular}{|l|l|l|l|}
 \hline
 
@@ -25,12 +25,12 @@ withdraw & 38796 & 32998 & 1 \\ \hline
 \end{table}
 
 \noindent
-For the second design on average, a player spends 82616 gas to join, and for each level, assuming they commit and reveal, 120157 gas. At level $l$ of the tournament tree, if we index levels from 0 from the root, the probability of winning is $\frac{1}{2^{l+1}}$. If we assume the prize is 100\% of the deposits, the prize will be $price \cdot N=price \cdot 2^L$. The first lottery level is $L-1$. For it to be worth playing the first match, the price must be so high that $prize \cdot \frac{1}{2^L} > cost_{tx}(L-1)$ or $2^L \cdot price \cdot \frac{1}{2^L} > cost_{tx}(L-1)$. The inequality simply solves as $price > cost_{tx}(L-1)$, which means that if the gas price is 1.5 gwei and L=10, the ticket cost must be at least $120157 * 10 \cdot 1.5 \mathrm{e}{-9}=0.0018 eth$ or 0.32 USD for ETH@176USD. 
-This means that the cost of initializing the lottery, which is paid by the lottery organizer, is by far the most significant cost. If we use off-chain negotiation in the matches, the transaction cost will approximately be cut in half, as we only need one transaction from the winner for each match. When calculating a minimum viable price for participating in the lottery, we should therefore primarily consider the price to set up the lottery for the organizer and how much of the ticket income the organizer takes as a fee.
+\ref{tab:gas-usage} is a list of transactions made in a simulation with 64 participants. The left column describes the transaction made, while the right column is the number of transactions of this type needed to successfully play a lottery. The middle columns is the average gas usage for each transaction for two different lottery designs. In the first design, we use a single match contract for all types of matches whether they are first level or internal. In the second design, we have two separate match contracts for first level matches and internal matches. 
 
 \begin{table}[h]
 \centering
 \caption{Organizer gas usage. Single match contract.}
+\label{tab:org-gas-usage-single}
 \begin{tabular}{|l|l|l|l|l|l|l|}
 \hline
 
@@ -46,6 +46,7 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \begin{table}[h]
 \centering
 \caption{Total gas usage. Single match contract.}
+\label{tab:total-gas-usage-single}
 \begin{tabular}{|l|l|l|l|l|l|l|}
 \hline
 
@@ -61,6 +62,7 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \begin{table}[h]
 \centering
 \caption{Organizer gas usage. Two types of match contracts.}
+\label{tab:org-gas-usage-dual}
 \begin{tabular}{|l|l|l|l|l|l|l|}
 \hline
 
@@ -76,6 +78,7 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \begin{table}[h]
 \centering
 \caption{Total gas usage. Two types of match contracts.}
+\label{tab:total-gas-usage-dual}
 \begin{tabular}{|l|l|l|l|l|l|l|}
 \hline
 
@@ -88,14 +91,16 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \end{tabular}
 \end{table}
 
+\noindent
+\ref{tab:org-gas-usage-single} and \ref{tab:total-gas-usage-single} show the gas usage of only setting up and setting and playing a full lottery, respectively, for the design with a single type of match contract. \ref{tab:org-gas-usage-dual} and \ref{tab:total-gas-usage-dual} show the gas usage for the design with two types of match contracts, also showing for only setting up and setting up and playing a full lottery.
+The dual match design compared to the single match design uses 44\% less gas to set up, and 36\% less gas to set up and play. As we can see in \ref{tab:gas-usage}, the savings come from deploying the match contracts. This is because we deploy less bytecode and declare fewer variables.
+
 As was expected, the gas usage scales linearly with the number of participants. The gas usage increases by a miniscule amount per participant. For simulating the entire lifecycle of a lottery, this can be explained by the deposit() function which keeps expanding a dynamic array as players join. I'm not sure why it happens when just setting up the lottery.
 
 We see that by far most gas is spent on deploying each individual match contract. This cost was significantly decreased by splitting the match contracts into two types, the \texttt{FirstLevelMatch} and \texttt{InternalMatch}. This is because each variable and each bit of bytecode contributes to the gas usage when deploying contracts. Decreasing the number of methods, decreasing the number and size of variables, and decreasing the number of instructions, i.e. lines of code, will decrease the gas usage. Since each match contract is not interacted with much – at most 4 times, two commits and two reveals – it seems wasteful to spend so much gas on deploying them on the blockchain permanently. This is a well-known issue, and it is possible to deduplicate common behaviour by using patterns involving \emph{library contracts} and \emph{proxy contracts}. \cite{lu_solidity_2018} demonstrate that gas usage for deploying contracts can decrease as much as 50\% by using these patterns. It could also be possible to do away with the dedicated match contracts completely, and handle everything in the master contract, but as this is a proof-of-concept implementation, we leave that to future work or a practical implementation.
 
 While the price of ether and by extension gas is known to fluctuate heavily in fiat terms, we choose to consider the cost of running the lottery only in the context of ether and gas price. The transaction costs depend entirely on gas usage and gas price, and can be made an arbitrarily low fraction of the ticket price if we can set the ticket price arbitrarily high. The gas price is also known for fluctuating somewhat in terms of ether, but is it simply a product of market demand for resources on the EVM. The gas price is not a fixed price, as there is essentially a bid and ask market with a spread between transactors and miners. A gas price on the low end means the probability of the transaction being included in a block is low. 
 
-We operate with a gas price of 1.5 gwei, which at the time of writing is considered quite low, but yet enough to make the transaction be included in about 30 minutes time. Most common casino games have a house edge of about 1-10\% \cite{walsh_houses_nodate}, while large lotteries often have a higher house edge of 40-50\% \cite{shackleford_house_nodate}. We therefore consider the organizer taking a 10\% fee of the deposits reasonable for both the players and the organizer. The organizer risks not enough players joining the lottery and thus losing all the ether needed to set up the lottery. 
+We operate with a gas price of 1.5 gwei and an ether price of 176USD, which at the time of writing is considered quite low, but yet enough to make the transaction be included in about 30 minutes time. Most common casino games have a house edge of about 1-10\% \cite{walsh_houses_nodate}, while large lotteries often have a higher house edge of 40-50\% \cite{shackleford_house_nodate}. We therefore consider the organizer taking a 10\% fee of the deposits reasonable for both the players and the organizer. The organizer risks not enough players joining the lottery and thus losing all the ether needed to set up the lottery. 
 
 In our design, a 10\% organizer fee and a 1.5 gwei gas price puts the price of each ticket at about 0.025 ether, which at the time of writing is about 5 USD, which we consider acceptable. Even though this can change by at least an order of magnitude within months, as the ether price fluctuates a lot. 
-
-Even though neither the organizer nor the players end up with the transaction fees, they aren't really wasted. The miners collect the fees who are needed to keep the network secure. Or maybe that doesn't matter in Ethereum, as there is perpetual inflation anyway.
