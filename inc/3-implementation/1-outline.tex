@@ -11,12 +11,24 @@ A secure implementation of this protocol would require the parties to mix in som
 
 Say we have Alice and Bob conducting a digital coin toss with commitments $C_A$ and $C_B$ and secrets $S_A$ and $S_B$. The salt is a predetermined string both parties use $salt$, and the hash function is $H()$. The commitments are calculated as $C=H(salt, S)$, and are verified by the same operation. We get the result of the XOR operation $r=S_A \oplus S_B$. The outcome is then determined by if $r\ mod\ 2 = 0$, then Alice wins, or if $r\ mod\ 2 = 1$, then Bob wins.
 
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\columnwidth]{figures/digital_coin_toss_flow.svg}
+  \caption{Flowchart of a digital coin toss}
+\end{figure}
+
 \subsubsection{Tournament of coin tosses}
 A digital coin toss can determine a winner out of two players, but can we use the same mechanism to determine a winner when there are more than two participants? We can construct a tournament of matches where the winner of each match is determined by a digital coin toss. The tournament can be represented as a full binary tree where the root node is the final match, whose winner is the winner of the entire tournament. Winning any other match will make one advance to a match one step closer to the final match. The players of each match in an internal node is determined by the winners from each of its two children. Participants in the tournament are represented as an ordered set, and each participant is assigned as a player to exactly one leaf node match. 
 
 Such a tournament will have $N=2^L$ players where $L$ is the height of the binary tree representing the tournament. There will be $\frac{N}{2}$ leaf node matches and $N-1$ matches in total. We call matches with the same height in the binary tree \emph{levels} in the tournament. Matches with the same level can be played concurrently and independent of each other, but internal matches of level $l$ cannot be played before all matches in level $l-1$ are determined.
 
 It may be the case that one or both players in a match fail to complete the digital coin toss in a match. Matches of each level in the tournament will be initialized with global time limits for when players have to have completed a certain procedure, such as making a commitment or reveal. If only one of the players fails to e.g. reveal their secret before the relevant time limit, that will be interpreted as a forfeiture, and the other player will win the match. If both players fail to complete the same procedure, e.g. if neither player makes a commitment before the commitment time limit, the match will have an undefined winner. If the final match has an undefined winner, the tournament will also have an undefined winner. If the match is not the final match, a match in the next level can have one player who is undefined. In that case, the only determined player will win by default.
+
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=0.5\columnwidth]{figures/tournament_tree.svg}
+  \caption{Tournament tree of 8 players}
+\end{figure}
 
 \subsection{Note on the lottery being non-deterministic}
 

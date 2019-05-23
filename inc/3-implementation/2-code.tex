@@ -37,3 +37,9 @@ In order to set up a valid lottery, the master contract and match contracts need
 
 The simulation code consists of two test suites. The first does the routine a lottery organizer needs to do in order to set up a lottery, which is creating and deploying the master contract and all match contracts. The second does all of what the first does in addition to simulating the lottery being played. In the second suite, players join by making deposits and then play each level of the tournament until one player is left as winner and withdraws the prize.
 The time elapsed and gas used is recorded for each simulation for analysis.
+
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\columnwidth]{figures/tournament_tree_contracts.svg}
+  \caption{Contracts in a lottery of 8 players}
+\end{figure}

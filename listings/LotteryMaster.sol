@@ -13,17 +13,6 @@ contract LotteryMaster {
     bool public isFull;
     address public owner;
     
-    constructor(uint256 _N, uint256 _price, uint256 _tStart, uint256 _tFinal) public {
-        require(_tStart < _tFinal, "Time limits invalid. Stop time is before start time.");
-        
-        N = _N;
-        price = _price;
-        tStart = _tStart;
-        tFinal = _tFinal;
-
-        owner = msg.sender;
-    }
-    
     function setFinalMatch(AbstractLotteryMatch _finalMatch) public {
         require(msg.sender == owner, "Only owner can set final match.");
         require(finalMatch == AbstractLotteryMatch(0), "Final match is already set.");

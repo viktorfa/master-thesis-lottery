@@ -11,15 +11,6 @@ contract InternalMatch is AbstractLotteryMatch{
     uint256 public tCommit;
     uint256 public tReveal;
     uint256 public tPlay;
-
-    constructor(uint256 _tCommit, uint256 _tReveal, uint256 _tPlay, AbstractLotteryMatch _left, AbstractLotteryMatch _right) public {
-        tCommit = _tCommit;
-        tReveal = _tReveal;
-        tPlay = _tPlay;
-
-        left = _left;
-        right = _right;
-    }
     
     function commit(bytes32 _c) public {
         require(tCommit < block.number, "Too early to commit.");

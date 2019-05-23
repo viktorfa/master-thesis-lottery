@@ -11,15 +11,6 @@ contract FirstLevelMatch is AbstractLotteryMatch {
     uint256 public tCommit;
     uint256 public tReveal;
     uint256 public tPlay;
-
-    constructor(uint256 _tCommit, uint256 _tReveal, uint256 _tPlay, LotteryMaster _lottery, uint256 _index) public {
-        tCommit = _tCommit;
-        tReveal = _tReveal;
-        tPlay = _tPlay;
-
-        lottery = _lottery;
-        index = _index;
-    }
     
     function commit(bytes32 _c) public {
         require(tCommit < block.number, "Too early to commit.");

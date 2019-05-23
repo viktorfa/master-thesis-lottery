@@ -6,6 +6,12 @@ A blockchain is an append-only data structure of cryptographically linked blocks
 A blockchain is commonly used as a global ledger that represents a state that defines ownership of various digital assets, these assets being primarily cryptocurrencies, but also property deeds and financial instruments. Blockchain systems are also typically permissionless and open for anyone regardless of their legal status or geographical location. A blockchain can be used for high value transfers and critical computations because it is considered to have the properties of immutability, liveness, and openness. 
 The term blockchain usually does not mean just the data structure, but also the implicit state represented in its transactions, the network of stakeholders interacting with it, and applications built on top of it. We will here consider the blockchain network to be the interconnected nodes running the full client software of the blockchain.
 
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\columnwidth]{figures/blockchain.svg}
+  \caption{A chain of blocks}
+\end{figure}
+
 \subsection{Transactions}
 
 The purpose of a blockchain is to enable participants to reach a global consensus on an ordered list of transactions. Transactions are validated and embedded in blocks, and all transactions implicitly represent a state. In Bitcoin \cite{bitcoinwhitepaper}, the state that is represented is who has the authority to spend which coins. The state can be abstracted to represent a set of accounts with balances denominated in bitcoin. A transaction can specify a short script that makes some coins spendable by executing a specific script with certain arguments – usually involving a digital signature. Transactions can be abstracted to represent transfers of coins between accounts.
@@ -18,6 +24,12 @@ The output script is a list of operations that will be executed on the Bitcoin v
 
 In addition to the input script and a reference to a previous transaction, an ordinary transaction also contains a new output script and the amount of coins it spends. A valid transaction will move the coins it spends to a new output script. And so each transaction moves coins from one output script to another, and a coin's entire history will be stored in the blockchain. 
 
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=0.5\columnwidth]{figures/transactions.svg}
+  \caption{Transactions in Bitcoin}
+\end{figure}
+
 \subsection{Mining}
 
 Blocks are produced by miners who validate transactions and calculate a cryptographic puzzle that requires large amounts of computing power to be expanded. The puzzles work as a probabilistic process where miners need to map a block's data to a small subspace of a function's range. Such a mapping constitutes a valid proof-of-work (PoW) and only blocks with a valid PoW will be accepted by other nodes. 
@@ -26,6 +38,12 @@ PoW is done to make producing blocks hard. Blocks being hard to produce has thre
 
 \paragraph{Natural block reorganization}
 Since many miners are competing simultaneously, we will from time to time encounter a situation when two or more valid blocks are produced at about the same time. A miner who produces a valid block will broadcast it to other miners, who will in turn propagate it through the network. When a miners receive a valid block of height $h$ from a peer, they will start mining on top of that block to produce the block of height $h+1$. If several blocks are propagated through the network at about the same time, some miners will have different blocks of equal height, and will need to make a decision on which block to continue mining on top of. This situation is called a natural fork, as the chain is split at the end into more subchains. Eventually one of the subchains will be appended more than the other, and miners will accept whichever subchain that is longest \footnote{Actually, the subchain with the most PoW will be chosen, but unless the split is very large, this will always be the longest subchain.}. The shorter subchains will be abandoned and their transactions will not affect the state represented by the blockchain.
+
+\begin{figure}[htbp]
+  \centering
+  \includesvg[width=\columnwidth]{figures/blockchain_fork.svg}
+  \caption{A natural blockchain fork}
+\end{figure}
 
 
 \subsection{Blockchain threats}
