@@ -374,46 +374,6 @@
   year={2015}
 }
 
-@article{szabo1997smartcontracts,
-  title={Formalizing and securing relationships on public networks},
-  author={Szabo, Nick},
-  journal={First Monday},
-  volume={2},
-  number={9},
-  year={1997}
-}
-
-@article{pierrot2018malleability,
-  title={Malleability of the blockchain’s entropy},
-  author={Pierrot, C{\'e}cile and Wesolowski, Benjamin},
-  journal={Cryptography and Communications},
-  volume={10},
-  number={1},
-  pages={211--233},
-  year={2018},
-  publisher={Springer}
-}
-
-@article{bonneau2015bitcoin,
-  title={On Bitcoin as a public randomness source.},
-  author={Bonneau, Joseph and Clark, Jeremy and Goldfeder, Steven},
-  journal={IACR Cryptology ePrint Archive},
-  volume={2015},
-  pages={1015},
-  year={2015}
-}
-
-@article{rabin1983transaction,
-  title={Transaction protection by beacons},
-  author={Rabin, Michael O},
-  journal={Journal of Computer and System Sciences},
-  volume={27},
-  number={2},
-  pages={256--267},
-  year={1983},
-  publisher={Elsevier}
-}
-
 @article{lenstra2015random,
   title={A random zoo: sloth, unicorn, and trx.},
   author={Lenstra, Arjen K and Wesolowski, Benjamin},
@@ -1158,4 +1118,78 @@ Our algorithm automatically solves all the multi-party protocol problems address
 	year = {2019},
 	note = {arXiv: 1902.07986},
 	keywords = {Computer Science - Computer Science and Game Theory, Computer Science - Cryptography and Security, Computer Science - Programming Languages}
+}
+
+@inproceedings{boneh_verifiable_2018,
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {Verifiable {Delay} {Functions}},
+	isbn = {978-3-319-96884-1},
+	abstract = {We study the problem of building a verifiable delay function (VDF). A {\textbackslash}text \{VDF\}VDF{\textbackslash}text \{VDF\}requires a specified number of sequential steps to evaluate, yet produces a unique output that can be efficiently and publicly verified. {\textbackslash}text \{VDF\}VDF{\textbackslash}text \{VDF\}s have many applications in decentralized systems, including public randomness beacons, leader election in consensus protocols, and proofs of replication. We formalize the requirements for {\textbackslash}text \{VDF\}VDF{\textbackslash}text \{VDF\}s and present new candidate constructions that are the first to achieve an exponential gap between evaluation and verification time.},
+	language = {en},
+	booktitle = {Advances in {Cryptology} – {CRYPTO} 2018},
+	publisher = {Springer International Publishing},
+	author = {Boneh, Dan and Bonneau, Joseph and Bünz, Benedikt and Fisch, Ben},
+	editor = {Shacham, Hovav and Boldyreva, Alexandra},
+	year = {2018},
+	pages = {757--788}
+}
+
+@article{bonneau_bitcoin_2015,
+	title = {On {Bitcoin} as a public randomness source},
+	volume = {2015},
+	abstract = {We formalize the use of Bitcoin as a source of publiclyverifiable randomness. As a side-effect of Bitcoin’s proof-of-work-based consensus system, random values are broadcast every time new blocks are mined. We can derive strong lower bounds on the computational min-entropy in each block: currently, at least 68 bits of min-entropy are produced every 10 minutes, from which one can derive over 32 nearuniform bits using standard extractor techniques. We show that any attack on this beacon would form an attack on Bitcoin itself and hence have a monetary cost that we can bound, unlike any other construction for a public randomness beacon in the literature. In our simplest construction, we show that a lottery producing a single unbiased bit is manipulation-resistant against an attacker with a stake of less than 50 bitcoins in the output, or about US\$12,000 today. Finally, we propose making the beacon output available to smart contracts and demonstrate that this simple tool enables a number of interesting applications.},
+	journal = {IACR Cryptology ePrint Archive},
+	author = {Bonneau, Joseph and Clark, Jeremy and Goldfeder, Steven},
+	year = {2015},
+	keywords = {Bitcoin, Extractor (mathematics), Maxima and minima, MinEd, Proof-of-work system, Randomness, Smart contract},
+	pages = {1015}
+}
+
+@article{szabo_formalizing_1997,
+	title = {Formalizing and {Securing} {Relationships} on {Public} {Networks}},
+	volume = {2},
+	copyright = {Copyright (c)},
+	issn = {13960466},
+	url = {https://firstmonday.org/ojs/index.php/fm/article/view/548},
+	doi = {10.5210/fm.v2i9.548},
+	abstract = {Smart contracts combine protocols with user interfaces to formalize and secure relationships over computer networks. Objectives and principles for the design of these systems are derived from legal principles, economic theory, and theories of reliable and secure protocols. Similarities and differences between smart contracts and traditional business procedures based on written contracts, controls, and static forms are discussed. By using cryptographic and other security mechanisms, we can secure many algorithmically specifiable relationships from breach by principals, and from eavesdropping or malicious interference by third parties, up to considerations of time, user interface, and completeness of the algorithmic specification. This article discusses protocols with application in important contracting areas, including credit, content rights management, payment systems, and contracts with bearer.},
+	language = {en-US},
+	number = {9},
+	urldate = {2019-05-23},
+	journal = {First Monday},
+	author = {Szabo, Nick},
+	month = sep,
+	year = {1997}
+}
+
+@article{rabin_transaction_1983,
+	title = {Transaction protection by beacons},
+	volume = {27},
+	issn = {0022-0000},
+	url = {http://www.sciencedirect.com/science/article/pii/0022000083900429},
+	doi = {10.1016/0022-0000(83)90042-9},
+	abstract = {Protocols for implementing contract signing, confidential disclosures, and certified mail in an electronic mail system are proposed. These transactions are provably impossible without a trusted intermediary. However, they can be implemented with just a small probability of a participant cheating his partner, by use of a beacon emitting random integers. Applications include privacy protection of personal information in data banks, as well as the protection of business transactions.},
+	number = {2},
+	urldate = {2019-05-16},
+	journal = {Journal of Computer and System Sciences},
+	author = {Rabin, Michael O.},
+	month = oct,
+	year = {1983},
+	pages = {256--267}
+}
+
+@inproceedings{maymounkov_kademlia_2002,
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {Kademlia: {A} {Peer}-to-{Peer} {Information} {System} {Based} on the {XOR} {Metric}},
+	isbn = {978-3-540-45748-0},
+	shorttitle = {Kademlia},
+	abstract = {We describe a peer-to-peer distributed hash table with provable consistency and performance in a fault-prone environment. Our system routes queries and locates nodes using a novel XOR-based metric topology that simplifies the algorithm and facilitates our proof. The topology has the property that every message exchanged conveys or reinforces useful contact information. The system exploits this information to send parallel, asynchronous query messages that tolerate node failures without imposing timeout delays on users.},
+	language = {en},
+	booktitle = {Peer-to-{Peer} {Systems}},
+	publisher = {Springer Berlin Heidelberg},
+	author = {Maymounkov, Petar and Mazières, David},
+	editor = {Druschel, Peter and Kaashoek, Frans and Rowstron, Antony},
+	year = {2002},
+	keywords = {Close Leaf, Close Node, Distribute Hash Table, Empty Bucket, Replacement Cache},
+	pages = {53--65}
 }

@@ -75,3 +75,27 @@ The most realistic scenario is that only a small ratio of all the transactions i
 Although $td$ can be set arbitrarily high, we probably don't want the lottery to drag on for weeks before a winner is determined. It seems like the lottery will face scalability issues in the order of 100000s or from $2^{17}$ participants if we want to complete it within days. The number of transactions needed will decrease exponentially with higher levels, so the first two levels will account for 75\% of the total time of the playing phase. 
 
 There are plans for Ethereum to increase the number of transactions it can handle by implementing proof-of-stake and sharding. While this might make our lottery capable of handling more participants, we don't know whether such a change in the protocol might introduce a new threat model that makes the lottery less scalable in other ways.
+
+\subsection{Transaction costs and max prize}
+
+Due to the size of the prize increasing linearly with the number of participants, a censorship attack by miners gets more profitable the more participants there are, which puts a limit on scalability. Even if a censorship attack is unlikely to succeed, it cannot be ignored when it can give high rewards to dishonest miners. Since the lottery prize is decided by the ticket price as well as the number of participants, the ticket price can be set so low that the total prize is not high enough to encourage manipulation by miners. The ticket price is however bounded to minimum value where the transaction costs for participating exceed the ticket price itself.
+
+Figure \ref{fig:cost-ratio-chart} shows the ratio of the ticket price going to transaction costs as a function of number of participants and a max tolerable prize. Figure \ref{fig:prize-chart} show the prize for the lottery for a given number of participants and ratio of transactions costs to ticket price. Both assume a gas price of 1,5 gwei.
+The charts show us the maximum scale of the lottery under different conditions for maximum tolerable prize and ticket price going to transaction costs. With the generous assumptions that the transaction costs can be as much as 40\% of the ticket price, and the maximum prize being 900 ether, this scalability limit approaches that of the above analysis of transaction throughput.
+
+The calculations is the charts do not account for the organizer probably taking some portion of the prize as a fee. Accounting for that would reduce the total prize, but would correspondingly increase the cost of buying tickets from the participants' perspective.
+
+
+\begin{figure}[htbp]
+\label{fig:cost-ratio-chart}
+  \centering
+  \includegraphics[width=\columnwidth]{figures/max_participants_cost_ratio.png}
+  \caption{Cost ratio as a function of participants and max prize.}
+\end{figure}
+
+\begin{figure}[htbp]
+\label{fig:prize-chart}
+  \centering
+  \includegraphics[width=\columnwidth]{figures/max_participants_prize.png}
+  \caption{Prize as a function of participants and cost ratio.}
+\end{figure}
