@@ -1219,3 +1219,56 @@ Our algorithm automatically solves all the multi-party protocol problems address
 	keywords = {Discrete Logarithm Problem, Elliptic Curve Digital Signature Algorithm, Fractional Reserve, Hash Function, Security Proof},
 	pages = {497--504}
 }
+
+@article{tschorsch_bitcoin_2016,
+	title = {Bitcoin and {Beyond}: {A} {Technical} {Survey} on {Decentralized} {Digital} {Currencies}},
+	volume = {18},
+	issn = {1553-877X},
+	shorttitle = {Bitcoin and {Beyond}},
+	doi = {10.1109/COMST.2016.2535718},
+	abstract = {Besides attracting a billion dollar economy, Bitcoin revolutionized the field of digital currencies and influenced many adjacent areas. This also induced significant scientific interest. In this survey, we unroll and structure the manyfold results and research directions. We start by introducing the Bitcoin protocol and its building blocks. From there we continue to explore the design space by discussing existing contributions and results. In the process, we deduce the fundamental structures and insights at the core of the Bitcoin protocol and its applications. As we show and discuss, many key ideas are likewise applicable in various other fields, so that their impact reaches far beyond Bitcoin itself.},
+	number = {3},
+	journal = {IEEE Communications Surveys Tutorials},
+	author = {Tschorsch, F. and Scheuermann, B.},
+	year = {2016},
+	keywords = {Altcoins, billion dollar economy, Bitcoin, Bitcoin protocol, blockchain, Contracts, cryptocurrencies, Cryptography, decentralized digital currency, design space exploration, digital currencies, distributed consensus, electronic money, Internet, Online banking, Protocols, Space exploration, survey, tutorial, Tutorials},
+	pages = {2084--2123}
+}
+
+@inproceedings{garay_bitcoin_2015,
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {The {Bitcoin} {Backbone} {Protocol}: {Analysis} and {Applications}},
+	isbn = {978-3-662-46803-6},
+	shorttitle = {The {Bitcoin} {Backbone} {Protocol}},
+	abstract = {Bitcoin is the first and most popular decentralized cryptocurrency to date. In this work, we extract and analyze the core of the Bitcoin protocol, which we term the Bitcoin backbone, and prove two of its fundamental properties which we call common prefix and chain quality in the static setting where the number of players remains fixed. Our proofs hinge on appropriate and novel assumptions on the “hashing power” of the adversary relative to network synchronicity; we show our results to be tight under high synchronization.Next, we propose and analyze applications that can be built “on top” of the backbone protocol, specifically focusing on Byzantine agreement (BA) and on the notion of a public transaction ledger. Regarding BA, we observe that Nakamoto’s suggestion falls short of solving it, and present a simple alternative which works assuming that the adversary’s hashing power is bounded by 1/31/31/3. The public transaction ledger captures the essence of Bitcoin’s operation as a cryptocurrency, in the sense that it guarantees the liveness and persistence of committed transactions. Based on this notion we describe and analyze the Bitcoin system as well as a more elaborate BA protocol, proving them secure assuming high network synchronicity and that the adversary’s hashing power is strictly less than 1/21/21/2, while the adversarial bound needed for security decreases as the network desynchronizes.},
+	language = {en},
+	booktitle = {Advances in {Cryptology} - {EUROCRYPT} 2015},
+	publisher = {Springer Berlin Heidelberg},
+	author = {Garay, Juan and Kiayias, Aggelos and Leonardos, Nikos},
+	editor = {Oswald, Elisabeth and Fischlin, Marc},
+	year = {2015},
+	keywords = {Cryptographic Hash Function, Hash Function, Input Tape, Overwhelming Probability, Random Oracle},
+	pages = {281--310}
+}
+
+@misc{buterin_problem_2015,
+	title = {The {Problem} of {Censorship}},
+	url = {https://blog.ethereum.org/2015/06/06/the-problem-of-censorship/},
+	abstract = {One of the interesting problems in designing effective blockchain technologies is, how can we ensure that the systems remain censorship-proof? Although lots of work has been done in cryptoeconomics in order to ensure that blockchains continue pumping out new blocks, and particularly to prevent blocks from being reverted, substantially less...},
+	language = {en},
+	urldate = {2019-05-29},
+	author = {Buterin, Vitalik},
+	month = jun,
+	year = {2015}
+}
+
+@misc{wuille_security_2019,
+	title = {security - 51\% attack - apparently very easy? refering to {CZ}'s "rollback btc chain" - {How} to make sure such corruptible scenario can never happen so easily?},
+	shorttitle = {security - 51\% attack - apparently very easy?},
+	url = {https://bitcoin.stackexchange.com/questions/87652/51-attack-apparently-very-easy-refering-to-czs-rollback-btc-chain-how-t/87655},
+	urldate = {2019-05-29},
+	journal = {Bitcoin Stack Exchange},
+	author = {Wuille, Peter},
+	month = may,
+	year = {2019}
+}

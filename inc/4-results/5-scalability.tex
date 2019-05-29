@@ -83,6 +83,8 @@ Due to the size of the prize increasing linearly with the number of participants
 Figure \ref{fig:cost-ratio-chart} shows the ratio of the ticket price going to transaction costs as a function of number of participants and a max tolerable prize. Figure \ref{fig:prize-chart} show the prize for the lottery for a given number of participants and ratio of transactions costs to ticket price. Both assume a gas price of 1,5 gwei.
 The charts show us the maximum scale of the lottery under different conditions for maximum tolerable prize and ticket price going to transaction costs. With the generous assumptions that the transaction costs can be as much as 40\% of the ticket price, and the maximum prize being 900 ether, this scalability limit approaches that of the above analysis of transaction throughput.
 
+Figure \ref{fig:price-chart} shows the range of ticket prices that are feasible for different amounts of participants, cost ratios, and maximum prizes. It shows that lotteries with few participants can handle quite high ticket prices without risking too much exposure by a high prize, while lotteries with more than $2^{16}$ participants can barely handle ticket prices so low that the cost ratio is nearly prohibitive unless a very large prize is acceptable. 
+
 The calculations is the charts do not account for the organizer probably taking some portion of the prize as a fee. Accounting for that would reduce the total prize, but would correspondingly increase the cost of buying tickets from the participants' perspective.
 
 
