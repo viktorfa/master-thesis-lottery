@@ -9,7 +9,8 @@ The term blockchain usually does not mean just the data structure, but also the 
 \begin{figure}[htbp]
   \centering
   \includesvg[width=\columnwidth]{figures/blockchain.svg}
-  \caption{A chain of blocks}
+  \caption{A chain of blocks linked with hashes.}
+  \label{fig:blockchain}
 \end{figure}
 
 \subsection{Transactions}
@@ -18,7 +19,7 @@ The purpose of a blockchain is to enable participants to reach a global consensu
 
 Each transaction is applied to a state and results in an altered state. Transactions are validated before they are applied to the state. The process of validating transactions consists of multiple steps. First, the transactions must be of a valid format. Only a limited set of instructions can be used, and the total size of the script is limited to a maximum length. Second, the transaction's script must be executed correctly. Third, the transaction cannot spend more coins than it has authority to spend.
 
-All coins in Bitcoin begin their life as a transaction output. Each block contains a \emph{coinbase transaction} which contains some coins, and the miner of that block decides how those coins can be spent. We assume the miner makes it so that the coinbase transaction coins can be spent by providing a signature with the miner's private key. The miner realizes this by defining the coinbase transaction's \emph{output script}, which will be stored in the block. 
+All coins in Bitcoin begin their life as a transaction output. Each block contains a \emph{coinbase transaction} which contains some coins, and the miner of that block decides how those coins can be spent. We assume the miner makes it so that the coinbase transaction coins can be spent by providing a signature with the miner's private key. The miner realizes this by defining the coinbase transaction's \emph{output script} – a machine readable spending policy for those coins, which will be stored in the block. 
 
 The output script is a list of operations that will be executed on the Bitcoin virtual machine (BVM). This virtual machine is stack based with a limited instruction set. While the coinbase transaction only has an output script, all other transactions, which we will call ordinary transactions, have an input script and and output script. The input script, as well as a reference to a previous transaction, must be defined in each ordinary transaction. When an ordinary transaction is validated, the output script of the previous transaction it references will be pushed to the stack of the BVM. Then the input script of the transaction will be pushed to the stack of the BVM, before the program is executed. If the stack at the end of the execution only contains a \texttt{true} value, the second step of the validation has succeeded. 
 
@@ -27,7 +28,8 @@ In addition to the input script and a reference to a previous transaction, an or
 \begin{figure}[htbp]
   \centering
   \includesvg[width=0.5\columnwidth]{figures/transactions.svg}
-  \caption{Transactions in Bitcoin}
+  \caption{Transactions in Bitcoin.}
+  \label{fig:bitcoin-transactions}
 \end{figure}
 
 \subsection{Mining}
@@ -43,6 +45,7 @@ Since many miners are competing simultaneously, we will from time to time encoun
   \centering
   \includesvg[width=\columnwidth]{figures/blockchain_fork.svg}
   \caption{A natural blockchain fork}
+  \label{fig:blockchain-fork}
 \end{figure}
 
 

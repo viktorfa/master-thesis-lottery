@@ -46,8 +46,9 @@
                 commentstyle=\color{darkgreen}\ttfamily,
 }
 
-% Include a custom lst highlighting for Solidity
-\input{solidity-highlighting.tex}
+% Include styling for Javascript ES6 and Solidity
+\input{custom-listing-highlighting.tex}
+
 
 
 %Typesetting of C++ but not always stable in titles etc...
@@ -126,7 +127,8 @@
 \bibliography{bibliography}
 
 \appendix
-\include{inc/rawdata}
+\include{inc/full-listings}
+%\include{inc/rawdata}
 %\include{inc/timetable}
 
 \end{document}

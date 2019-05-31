@@ -5,7 +5,7 @@ The only smart contracts used in the lottery are the master contract and the two
 
 Setting up the lottery is a multi step process that must happen in a specific order. First, the master contract needs to be deployed, then the first level match contracts which are all initialized with the address of the master contract are deployed. Internal match contracts from the same level in the tournament tree can be deployed at the same time, but match contracts of each level need a reference to matches from the previous level, which means matches from each level must be deployed in sequence. In order to manage this process, we have made a script to automate it. The smart contracts and deployment scripts also have associated unit tests and a simulation suite.
 
-The listings included here have been truncated somewhat and are not necessarily compilable code. See the Github repository and appendix for full working code.
+The listings included here have been truncated somewhat and are not necessarily compilable code. See the Github repository~\footnote{\url{https://github.com/viktorfa/lottery-truffle}} and appendix for full working code.
 
 \subsection{Master contract}
 \texttt{LotteryMaster} is the smart contract responsible for registering participants, taking deposits, and distributing the prize. It serves as a central hub in the lottery that all players must interact with. Whoever deploys this contract is the lottery organizer, and is the only account with the authority to initialize the lottery by setting the final match. 

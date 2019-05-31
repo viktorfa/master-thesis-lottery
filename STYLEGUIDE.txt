@@ -1,0 +1,36 @@
+This is Viktor's personal styleguide. The goal is not to override NTNU's styleguide. But to make it easy to have a consistent style, grammer, and spelling for what the default NTNU styleguide does not cover.
+
+
+SPELLING
+- Use US English spelling. 
+- Use "joined" words where is it acceptable, as opposed to split words or hyphenated words. E.g. lifecycle is preferred over life cycle or life-cycle. A dictionary is the preferred authority to decide what is acceptable, but many domain-specific words are not in a dictionary, so we must use Wikipedia or other computer science literature.
+- Use hyphenation rather than split words where acceptable. E.g. so-called over so called.
+
+GRAMMAR
+- Commas around however etc. Not decided yet.
+- Use long hyphens '–' as a sentence break, not short hyphens '-'.
+- Long hyphens, commas, dots, semi-colons, and colons can all be used where appropriate.
+- Avoid shortening two words into one word with an apostrophe. E.g. use cannot, do not, and she is rather than can't don't and she's.
+- Use comma before the last item (Oxford comma) when listing things. E.g. Alice, Bob, and Carol.
+- Don't use gendered pronouns, just use they, them, themselves, etc. Don't use she or he or her or his.
+- Try to avoid using parentheses.
+
+
+STYLE
+- Use dots '.' and not commas ',' in decimal numbers, just like in a programming language. Both in math expressions and outside math expressions.
+- Use math expressions for letter variables, even if they stand alone, but not for numbers. E.g. $N$ participants, but not $16$ participants. If the variables are used in a name, such as the M of N signatures scheme, then don't use math expressions when referring to that scheme.
+- Only use \texttt{} when referring to code. Don't use \texttt{} when referring to variables or math expressions where $ $ should be used.
+- Use \emph{} when introducing new words. Don't use \textbf{} as bold text is reserved for headers
+- Always have parenthesis after a function when both in math mode and \texttt{} mode. Even when you don't specify the parameters or arguments. E.g. $Hash()$ is a hash function
+- Use full words when describing functions in math mode. E.g. $Sign(SK, M)$ is preferred over $S(SK, M)$.
+- Use full words for variables that are not very common. E.g. use $salt$ rather than $s$. But letters can be used in very common variables such as $H:=Hash(C)$
+- Use $:=$ as the assignment operator. $=$ is the equality operator.
+- End all captions with a period '.'
+- Don't end headers with a period.
+- I'm using a few footnotes now, even though I don't really like it. I'm also not sure if NTNU likes them.
+- Prefix each reference with the full capitalized word of the reference type. E.g. Chapter \ref{chap:background} and Figure \ref{fig:bitcoin-transactions}. When listing references, only use one non-pluralized capitalized word. E.g. Table \ref{tab:gas-usage} and \ref{tab:org-gas-usage-single}.
+
+
+MISC
+- Don't use smileys
+- Don't use tildes '~' to make cute speech. E.g. Okay ~~

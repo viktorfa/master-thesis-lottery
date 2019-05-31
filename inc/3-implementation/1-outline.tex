@@ -9,12 +9,13 @@ We consider the case where two untrusting parties want to arrive at an unpredict
 
 A secure implementation of this protocol would require the parties to mix in some salt when hashing the secret, i.e. by concatenating the secret with a predefined string. This is to prevent one party from committing to the same value as the counterparty, so that the preimages are equal to each other. That would result in the outcome being predictable, i.e. always 0 if we use the XOR operation. 
 
-Say we have Alice and Bob conducting a digital coin toss with commitments $C_A$ and $C_B$ and secrets $S_A$ and $S_B$. The salt is a predetermined string both parties use $salt$, and the hash function is $H()$. The commitments are calculated as $C=H(salt, S)$, and are verified by the same operation. We get the result of the XOR operation $r=S_A \oplus S_B$. The outcome is then determined by if $r\ mod\ 2 = 0$, then Alice wins, or if $r\ mod\ 2 = 1$, then Bob wins.
+Say we have Alice and Bob conducting a digital coin toss with commitments $C_A$ and $C_B$ and secrets $S_A$ and $S_B$. The salt is a predetermined string both parties use $salt$, and the hash function is $H()$. The commitments are calculated as $C:=H(salt, S)$, and are verified by the same operation. We get the result of the XOR operation $r=S_A \oplus S_B$. The outcome is then determined by if $r\ mod\ 2 = 0$, then Alice wins, or if $r\ mod\ 2 = 1$, then Bob wins.
 
 \begin{figure}[htbp]
   \centering
   \includesvg[width=\columnwidth]{figures/digital_coin_toss_flow.svg}
   \caption{Flowchart of a digital coin toss}
+  \label{fig:digital-coin-toss-flow}
 \end{figure}
 
 \subsubsection{Tournament of coin tosses}
@@ -28,6 +29,7 @@ It may be the case that one or both players in a match fail to complete the digi
   \centering
   \includesvg[width=0.5\columnwidth]{figures/tournament_tree.svg}
   \caption{Tournament tree of 8 players}
+  \label{fig:tournament-tree}
 \end{figure}
 
 \subsection{Note on the lottery being non-deterministic}
@@ -51,7 +53,7 @@ While the match contracts form a tournament on their own, we need a contract to 
 
 
 \subsubsection{Deposit phase}
-Once the master contract and all the match contracts are set up correctly, any potential player can verify that the contracts are set up correctly by inspecting each contract. Players can then join the lottery by sending a \texttt{deposit()} transaction with the ticket price to the master contract. Making a deposit will increase the master contract's balance and insert the sender in a list of players. In a lottery of $N$ players, the list of players will be index $i_{player}$ from $0$ to $N-1$. Each first level match is initialized with a unique index $i_{FLM}$ from $0$ to $\frac{N}{2}-1$. A first level match retrieves its players by looking up $i_{FLM} \cdot 2$ and $i_{FLM} \cdot 2 + 1$ in the match contract's list of players.
+Once the master contract and all the match contracts are set up correctly, any potential player can verify that the contracts are set up correctly by inspecting each contract. Players can then join the lottery by sending a \texttt{deposit()} transaction with the ticket price to the master contract. Making a deposit will increase the master contract's balance and insert the sender in a list of players, so that players are ordered by when they joined. In a lottery of $N$ players, the list of players will be index $i_{player}$ from $0$ to $N-1$. Each first level match is initialized with a unique index $i_{FLM}$ from $0$ to $\frac{N}{2}-1$. A first level match retrieves its players by looking up $i_{FLM} \cdot 2$ and $i_{FLM} \cdot 2 + 1$ in the match contract's list of players.
 
 Deposits will be possible as long as the lottery is not full and a start time is not yet reached. The lottery is full once the amount of deposits has reached the predefined number of participants. If the lottery is not full by the start time, the lottery will not be able to start. If the lottery is full by the start time, the lottery moves into the next phase.
 
