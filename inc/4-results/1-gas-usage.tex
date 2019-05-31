@@ -92,7 +92,7 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \end{table}
 
 \noindent
-Table \ref{tab:org-gas-usage-single} and \ref{tab:total-gas-usage-single} show the gas usage of only setting up and setting and playing a full lottery, respectively, for the design with a single type of match contract. Table \ref{tab:org-gas-usage-dual} and \ref{tab:total-gas-usage-dual} show the gas usage for the design with two types of match contracts, also showing for only setting up and setting up and playing a full lottery.
+Table \ref{tab:org-gas-usage-single} and \ref{tab:total-gas-usage-single} show the gas usage of only setting up and setting and playing a full lottery, respectively, for the design with a single type of match contract. Table Table \ref{tab:org-gas-usage-dual} and \ref{tab:total-gas-usage-dual} show the gas usage for the design with two types of match contracts, also showing for only setting up and setting up and playing a full lottery.
 The dual match design compared to the single match design uses 44\% less gas to set up, and 36\% less gas to set up and play. As we can see in Table \ref{tab:gas-usage}, the savings come from deploying the match contracts. This is because we deploy less bytecode and declare fewer variables with the dial match design.
 
 As was expected, the gas usage scales linearly with the number of participants. The gas usage increases by a miniscule amount per participant. For simulating the entire lifecycle of a lottery, this can be explained by the \texttt{deposit()} function which keeps expanding a dynamic array as players join. \todo{I'm not sure why it happens when just setting up the lottery.}
