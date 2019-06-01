@@ -8,24 +8,24 @@
 \begin{tabular}{|l|l|l|l|}
 \hline
 
-transaction & first design & second design & \# \\ \hline
-create LotteryMaster & 1176518 & 1176518 & 1 \\ \hline
+transaction & single match & dual match & \# \\ \hline
+create LotteryMaster & 1087189 & 1087125 & 1 \\ \hline
 setFinalMatch & 49282 & 49282 & 1 \\ \hline
-create LotteryMatch & 2148144 & - & N-1 \\ \hline
-create FirstLevelMatch & - & 967850 & N/2 \\ \hline
-create InternalMatch & - & 991533 & (N/2)-1 \\ \hline
-initFirstLevelMatch & 73877 & - & N/2 \\ \hline
-initInternalMatch & 71038 & - & (N/2)-1 \\ \hline
-deposit & 74891 & 82616 & N \\ \hline
-commit & 83394 & 77272 & 2(N-1) \\ \hline
-reveal & 43038 & 42885 & 2(N-1) \\ \hline
-withdraw & 38796 & 32998 & 1 \\ \hline
+create LotteryMatch & 2472237 & - & N-1 \\ \hline
+create FirstLevelMatch & - & 1693728 & N/2 \\ \hline
+create InternalMatch & - & 1697819 & (N/2)-1 \\ \hline
+initFirstLevelMatch & 74700 & - & N/2 \\ \hline
+initInternalMatch & 71034 & - & (N/2)-1 \\ \hline
+deposit & 73925 & 73925 & N \\ \hline
+commit & 83548 & 88668 & 2(N-1) \\ \hline
+reveal & 43035 & 42882 & 2(N-1) \\ \hline
+withdraw & 39277 & 39177 & 1 \\ \hline
 
 \end{tabular}
 \end{table}
 
 \noindent
-Table \ref{tab:gas-usage} is a list of transactions made in a simulation with 64 participants. The left column describes the transaction made, while the right column is the number of transactions of this type needed to successfully play a lottery. The middle columns are the average gas usage for each transaction for two different lottery designs. In the first design, we use a single match contract for all types of matches whether they are first level or internal. In the second design, we have two separate match contracts for first level matches and internal matches. 
+Table \ref{tab:gas-usage} is a list of transactions made in a simulation with 256 participants. The left column describes the transaction made, while the right column is the number of transactions of this type needed to successfully play a lottery. The middle columns are the average gas usage for each transaction for two different lottery designs. In the first design, we use a single match contract for all types of matches whether they are first level or internal. In the second design, we have two separate match contracts for first level matches and internal matches. 
 
 \begin{table}[h]
 \centering
@@ -35,10 +35,10 @@ Table \ref{tab:gas-usage} is a list of transactions made in a simulation with 64
 \hline
 
 N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 70065854 & 0,105 & 18,50 & 2189558 & 0,003284 & 0,578 \\ \hline
-64 & 141139966 & 0,212 & 37,26 & 2205312 & 0,003308 & 0,582 \\ \hline
-128 & 283296254 & 0,425 & 74,79 & 2213252 & 0,003320 & 0,584 \\ \hline
-256 & 567601662 & 0,851 & 149,85 & 2217194 & 0,003326 & 0,585 \\ \hline
+32 & 80023408 & 0.120 & 21.13 & 2500732 & 0.003751 & 0.660 \\ \hline
+64 & 161466448 & 0.242 & 42.63 & 2522913 & 0.003784 & 0.666 \\ \hline
+128 & 324354704 & 0.487 & 85.63 & 2534021 & 0.003801 & 0.669 \\ \hline
+256 & 650139920 & 0.975 & 171.64 & 2539609 & 0.003809 & 0.670 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -51,10 +51,10 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \hline
 
 N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 80339905 & 0,121 & 21,21 & 2510622 & 0,003766 & 0,663 \\ \hline
-64 & 161879965 & 0,243 & 42,74 & 2529374 & 0,003794 & 0,668 \\ \hline
-128 & 324963381 & 0,487 & 85,79 & 2538776 & 0,003808 & 0,670 \\ \hline
-256 & 651135921 & 0,977 & 171,90 & 2543500 & 0,003815 & 0,671 \\ \hline
+32 & 90297000 & 0.135 & 23.84 & 2821781 & 0.004233 & 0.745 \\ \hline
+64 & 182203802 & 0.273 & 48.10 & 2846934 & 0.004270 & 0.752 \\ \hline
+128 & 366020720 & 0.549 & 96.63 & 2859537 & 0.004289 & 0.755 \\ \hline
+256 & 733661484 & 1.100 & 193.69 & 2865865 & 0.004299 & 0.757 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -67,10 +67,10 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \hline
 
 N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 49066037 & 0,074 & 12,95 & 1533314 & 0,002300 & 0,405 \\ \hline
-64 & 98473301 & 0,148 & 26,00 & 1538645 & 0,002308 & 0,406 \\ \hline
-128 & 197288085 & 0,296 & 52,08 & 1541313 & 0,002312 & 0,407 \\ \hline
-256 & 394917077 & 0,592 & 104,26 & 1542645 & 0,002314 & 0,407 \\ \hline
+32 & 53690344 & 0.081 & 14.17 & 1677823 & 0.002517 & 0.443 \\ \hline
+64 & 107956984 & 0.162 & 28.50 & 1686828 & 0.002530 & 0.445 \\ \hline
+128 & 216490200 & 0.325 & 57.15 & 1691330 & 0.002537 & 0.447 \\ \hline
+256 & 433556696 & 0.650 & 114.46 & 1693581 & 0.002540 & 0.447 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -83,10 +83,10 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \hline
 
 N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 59273154 & 0,089 & 15,65 & 1852286 & 0,002778 & 0,489 \\ \hline
-64 & 119076700 & 0,179 & 31,44 & 1860573 & 0,002791 & 0,491 \\ \hline
-128 & 238682928 & 0,358 & 63,01 & 1864710 & 0,002797 & 0,492 \\ \hline
-256 & 477895776 & 0,717 & 126,16 & 1866780 & 0,002800 & 0,493 \\ \hline
+32 & 63896706 & 0.096 & 16.87 & 1996772 & 0.002995 & 0.527 \\ \hline
+64 & 128557218 & 0.193 & 33.94 & 2008707 & 0.003013 & 0.530 \\ \hline
+128 & 257880692 & 0.387 & 68.08 & 2014693 & 0.003022 & 0.532 \\ \hline
+256 & 516523956 & 0.775 & 136.36 & 2017672 & 0.003027 & 0.533 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -95,7 +95,7 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 Table \ref{tab:org-gas-usage-single} and \ref{tab:total-gas-usage-single} show the gas usage of only setting up and setting and playing a full lottery, respectively, for the design with a single type of match contract. Table Table \ref{tab:org-gas-usage-dual} and \ref{tab:total-gas-usage-dual} show the gas usage for the design with two types of match contracts, also showing for only setting up and setting up and playing a full lottery.
 The dual match design compared to the single match design uses 44\% less gas to set up, and 36\% less gas to set up and play. As we can see in Table \ref{tab:gas-usage}, the savings come from deploying the match contracts. This is because we deploy less bytecode and declare fewer variables with the dial match design.
 
-As was expected, the gas usage scales linearly with the number of participants. The gas usage increases by a miniscule amount per participant. For simulating the entire lifecycle of a lottery, this can be explained by the \texttt{deposit()} function which keeps expanding a dynamic array as players join.
+As was expected, the gas usage scales linearly with the number of participants. The gas usage increases by a minuscule amount per participant. For simulating the entire lifecycle of a lottery, this can be explained by the \texttt{deposit()} function which keeps expanding a dynamic array as players join.
 
 We see that by far most gas is spent on deploying each individual match contract. This cost was significantly decreased by splitting the match contracts into two types, the \texttt{FirstLevelMatch} and \texttt{InternalMatch}. This is because each variable and each bit of bytecode contributes to the gas usage when deploying contracts. Decreasing the number of methods, decreasing the number and size of variables, and decreasing the number of instructions, i.e. lines of code, will decrease the gas usage. Since each match contract is not interacted with much – at most four times, two commits and two reveals – it seems wasteful to spend so much gas on deploying them on the blockchain permanently. This is a well-known issue, and it is possible to deduplicate common behaviour by using patterns involving \emph{library contracts} and \emph{proxy contracts}. \cite{lu_solidity_2018} demonstrate that gas usage for deploying contracts can decrease as much as 50\% by using these patterns. It could also be possible to do away with the dedicated match contracts completely, and handle everything in the master contract, but we leave that to future work or a practical implementation.
 

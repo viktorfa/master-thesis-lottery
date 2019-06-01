@@ -32,5 +32,7 @@ STYLE
 
 
 MISC
+- Try to not use 'we' and 'us' or certainly not 'I'. 
+...
 - Don't use smileys
 - Don't use tildes '~' to make cute speech. E.g. Okay ~~

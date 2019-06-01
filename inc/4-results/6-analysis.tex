@@ -22,8 +22,9 @@ Another possible solution is to have some matches consisting of three players in
 It is possible that there is a design in which a tournament with any amount of participants can be played fairly, but it would involve some considerable design changes from our lottery that is beyond the scope of this thesis.
 
 \subsection{Mitigating a censorship attack}
-\todo{It might be too hard to do something about this, actually.}
 
 A possible vulnerability in censorship of transactions was discovered. Even though the risk of a censorship attack is unknown, if we assume the possibility of a miner or collusion of miners with a majority hashing power, it would at some size of the lottery prize be in their economic interest to launch such an attack. A censorship attack is possible because of the time limits of matches, because a player unable to make transactions will lose. The time limits are however necessary to prevent a single participant halting the entire process. 
 
 A possible way of mitigating a censorship attack is to annul the result of the tournament if the winner won a certain fraction of their matches by forfeiture. This could possibly do some collateral damage in that an honest winner could risk being suspected of cheating. It could also make the off-chain negotiation mentioned earlier in this section impractical. 
+
+\todo{Not much is known about censorship attacks, and AFAIK, there is no historical precedent yet. We only know it's possible, so it should be a concern for everyone developing on a blockchain, but it's very hard to arrive at some hard numbers related to it.}
