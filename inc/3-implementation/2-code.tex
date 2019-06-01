@@ -25,7 +25,6 @@ The \texttt{getWinner()} method performs the digital coin toss if both players h
 
 A match has a way to determine which players are eligible to play it. This is handled differently in \texttt{FirstLevelMatch} and \texttt{InternalMatch}. The former is initialized with an index and a reference to a \texttt{LotteryMaster} contract. Each player in the master contract is indexed so that each player is paired with another who is their opponent in the match of the first level. The latter is initialized with a reference to two matches, \texttt{left} and \texttt{right}, of the previous level in the tournament. These matches will return their winner in the \texttt{getWinner()} method, which is used to determine the players of the match in the next level. 
 
-\lstinputlisting[language={Solidity}, caption={Common code for lottery match}, label={lst:CommonMatchCode.sol}]{listings/CommonMatchCode.sol}
 \lstinputlisting[language={Solidity}, caption={Lottery first level match contract}, label={lst:FirstLevelMatch.sol}]{listings/FirstLevelMatch.sol}
 \lstinputlisting[language={Solidity}, caption={Lottery internal match contract}, label={lst:InternalMatch.sol}]{listings/InternalMatch.sol}
 
