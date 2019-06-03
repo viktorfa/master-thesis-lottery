@@ -1,6 +1,11 @@
 \chapter{Results}
 \label{chap:results}
 
+This chapter will present some results from simulating the lottery being set up and played. We primarily measure gas usage which is the same on the local blockchain used for simulations as the main live Ethereum blockchain used in production. The transaction costs on Ethereum are measured in each transaction's gas usage. The transaction costs, which will be used interchangeably with gas costs, is the product of the gas usage and a gas price. The gas usage is a unitless number, while the gas price is denominated in \emph{wei}, which is the most granular unit of ether. $1 wei=1 \mathrm{e}{-18} ether$. It's common to quote the gas price in gwei, which is simply a gigawei ($1\mathrm{e}{9} wei$). When quoting prices in USD we operate with an ether price of 176 USD. 
+
+In addition to presenting the results from simulation, we will analyze the security and scalability of the lottery. Some calculations will be made where both the gas usage results from the simulations and reasonable assumptions of gas price and maximum lottery prize will be used.
+The last section of the chapter will discuss the consequences of our design choices and trade-offs for the properties of the lottery, and suggest some alternative designs that will result in a lottery with different properties.
+
 \input{inc/4-results/1-gas-usage.tex}
 \input{inc/4-results/2-ticket-price.tex}
 \input{inc/4-results/3-security.tex}
