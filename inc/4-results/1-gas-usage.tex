@@ -31,14 +31,15 @@ Table \ref{tab:gas-usage} is a list of transactions made in a simulation with 25
 \centering
 \caption{Organizer gas usage. Single match contract.}
 \label{tab:org-gas-usage-single}
-\begin{tabular}{|l|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
 
-N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 80023408 & 0.120 & 21.13 & 2500732 & 0.003751 & 0.660 \\ \hline
-64 & 161466448 & 0.242 & 42.63 & 2522913 & 0.003784 & 0.666 \\ \hline
-128 & 324354704 & 0.487 & 85.63 & 2534021 & 0.003801 & 0.669 \\ \hline
-256 & 650139920 & 0.975 & 171.64 & 2539609 & 0.003809 & 0.670 \\ \hline
+N & Gas & ETH & USD & Gas / N & ETH / N & USD / N & $\Delta$ Gas / N \\ \hline
+32 & 80023408 & 0.120 & 21.13 & 2500732 & 0.003751 & 0.660 &  \\ \hline
+64 & 161466448 & 0.242 & 42.63 & 2522913 & 0.003784 & 0.666 & 22182 \\ \hline
+128 & 324354704 & 0.487 & 85.63 & 2534021 & 0.003801 & 0.669 & 11108 \\ \hline
+256 & 650139920 & 0.975 & 171.64 & 2539609 & 0.003809 & 0.670 & 5588 \\ \hline
+512 & 1301701456 & 1.953 & 343.65 & 2542386 & 0.003814 & 0.671 & 2777 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -47,14 +48,15 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \centering
 \caption{Total gas usage. Single match contract.}
 \label{tab:total-gas-usage-single}
-\begin{tabular}{|l|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
 
-N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 90297000 & 0.135 & 23.84 & 2821781 & 0.004233 & 0.745 \\ \hline
-64 & 182203802 & 0.273 & 48.10 & 2846934 & 0.004270 & 0.752 \\ \hline
-128 & 366020720 & 0.549 & 96.63 & 2859537 & 0.004289 & 0.755 \\ \hline
-256 & 733661484 & 1.100 & 193.69 & 2865865 & 0.004299 & 0.757 \\ \hline
+N & Gas & ETH & USD & Gas / N & ETH / N & USD / N & $\Delta$ Gas / N \\ \hline
+32 & 90297000 & 0.135 & 23.84 & 2821781 & 0.004233 & 0.745 &  \\ \hline
+64 & 182203802 & 0.273 & 48.10 & 2846934 & 0.004270 & 0.752 & 25153 \\ \hline
+128 & 366020720 & 0.549 & 96.63 & 2859537 & 0.004289 & 0.755 & 12602 \\ \hline
+256 & 733661484 & 1.100 & 193.69 & 2865865 & 0.004299 & 0.757 & 6328 \\ \hline
+512 & 1468940796 & 2.203 & 387.80 & 2869025 & 0.004304 & 0.757 & 3160 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -63,14 +65,15 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \centering
 \caption{Organizer gas usage. Two types of match contracts.}
 \label{tab:org-gas-usage-dual}
-\begin{tabular}{|l|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
 
-N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 53690344 & 0.081 & 14.17 & 1677823 & 0.002517 & 0.443 \\ \hline
-64 & 107956984 & 0.162 & 28.50 & 1686828 & 0.002530 & 0.445 \\ \hline
-128 & 216490200 & 0.325 & 57.15 & 1691330 & 0.002537 & 0.447 \\ \hline
-256 & 433556696 & 0.650 & 114.46 & 1693581 & 0.002540 & 0.447 \\ \hline
+N & Gas & ETH & USD & Gas / N & ETH / N & USD / N & $\Delta$ Gas / N \\ \hline
+32 & 53690344 & 0.081 & 14.17 & 1677823 & 0.002517 & 0.443 &  \\ \hline
+64 & 107956984 & 0.162 & 28.50 & 1686828 & 0.002530 & 0.445 & 9005 \\ \hline
+128 & 216490200 & 0.325 & 57.15 & 1691330 & 0.002537 & 0.447 & 4502 \\ \hline
+256 & 433556696 & 0.650 & 114.46 & 1693581 & 0.002540 & 0.447 & 2251 \\ \hline
+512 & 867690392 & 1.302 & 229.07 & 1694708 & 0.002542 & 0.447 & 1127 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -79,14 +82,15 @@ N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
 \centering
 \caption{Total gas usage. Two types of match contracts.}
 \label{tab:total-gas-usage-dual}
-\begin{tabular}{|l|l|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
 
-N & Gas & ETH & USD & Gas / N & ETH / N & USD / N \\ \hline
-32 & 63896706 & 0.096 & 16.87 & 1996772 & 0.002995 & 0.527 \\ \hline
-64 & 128557218 & 0.193 & 33.94 & 2008707 & 0.003013 & 0.530 \\ \hline
-128 & 257880692 & 0.387 & 68.08 & 2014693 & 0.003022 & 0.532 \\ \hline
-256 & 516523956 & 0.775 & 136.36 & 2017672 & 0.003027 & 0.533 \\ \hline
+N & Gas & ETH & USD & Gas / N & ETH / N & USD / N & $\Delta$ Gas / N \\ \hline
+32 & 63896706 & 0.096 & 16.87 & 1996772 & 0.002995 & 0.527 &  \\ \hline
+64 & 128557218 & 0.193 & 33.94 & 2008707 & 0.003013 & 0.530 & 11934 \\ \hline
+128 & 257880692 & 0.387 & 68.08 & 2014693 & 0.003022 & 0.532 & 5986 \\ \hline
+256 & 516523956 & 0.775 & 136.36 & 2017672 & 0.003027 & 0.533 & 2979 \\ \hline
+512 & 1033816570 & 1.551 & 272.93 & 2019173 & 0.003029 & 0.533 & 1501 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -97,6 +101,6 @@ The dual match design compared to the single match design uses 50\% less gas to 
 
 As was expected, the gas usage increases linearly with the number of participants. Even though the gas per participant also increases by a minuscule amount as the number of participants grow, this amount goes towards zero with more participants. For simulating the entire lifecycle of a lottery, this can be explained by the \texttt{deposit()} function which keeps expanding a dynamic array as players join. We will use the measurements for dual matches from Table \ref{tab:gas-usage} in calculations later in this chapter to analyze ticket pricing and scalability. By using the amount of transactions necessary of each type, we see that the gas usage for a lottery of $N$ players can be expressed as for just setting up the lottery $\frac{3391547 \cdot N}{2} - 561412$ and $\frac{4065677 \cdot N}{2} - 785375$ for setting up and playing the entire lottery.
 
-We see that by far most gas is spent on deploying each individual match contract. This cost was significantly decreased by splitting the match contracts into two types, the \texttt{FirstLevelMatch} and \texttt{InternalMatch}. This is because each variable and each bit of bytecode contributes to the gas usage when deploying contracts. Decreasing the number of methods, decreasing the number and size of variables, and decreasing the number of instructions, i.e. lines of code, will decrease the gas usage. Since each match contract is not interacted with much – at most four times, two commits and two reveals – it seems wasteful to spend so much gas on deploying them on the blockchain permanently. This is a well-known issue, and it is possible to deduplicate common behaviour by using patterns involving \emph{library contracts} and \emph{proxy contracts}. \cite{lu_solidity_2018} demonstrate that gas usage for deploying contracts can decrease as much as 50\% by using these patterns. It could also be possible to do away with the dedicated match contracts completely, and handle everything in the master contract, but we leave that to future work or a practical implementation.
+The bulk of the transaction costs of a lottery is setting up all the contracts, which must be done by the lottery organizer. The setup cost is 84\% of the total transaction costs for the 512 player simulation for dual match contracts. We see that by far most gas is spent on deploying each individual match contract. This cost was significantly decreased by splitting the match contracts into two types, the \texttt{FirstLevelMatch} and \texttt{InternalMatch}. This is because each variable and each bit of bytecode contributes to the gas usage when deploying contracts. Decreasing the number of methods, decreasing the number and size of variables, and decreasing the number of instructions, i.e. lines of code, will decrease the gas usage. Since each match contract is not interacted with much – at most four times, two commits and two reveals – it seems wasteful to spend so much gas on deploying them on the blockchain permanently. This is a well-known issue, and it is possible to deduplicate common behaviour by using patterns involving \emph{library contracts} and \emph{proxy contracts}. \cite{lu_solidity_2018} demonstrate that gas usage for deploying contracts can decrease as much as 50\% by using these patterns. It could also be possible to do away with the dedicated match contracts completely, and handle everything in the master contract, but we leave that to future work or a practical implementation.
 
-While the price of ether and by extension gas is known to fluctuate heavily in fiat terms, we choose to primarily consider the cost of running the lottery only in the context of ether and gas price, even though we will also mention the price in USD in some cases to provide context. The transaction costs depend entirely on gas usage and gas price, and can be made an arbitrarily low fraction of the ticket price if we can set the ticket price arbitrarily high. The gas price is also known for fluctuating somewhat in terms of ether, but it is simply a result of market demand for resources on the EVM. The gas price is not a fixed price, as there is essentially a bid and ask market with a spread, where transactors are bidders and miners are askers. By bidding with a low gas price, it means the probability of the transaction being included in a block is low, as miners are likely to include transactions with a higher gas price.
+While the price of ether and by extension gas is known to fluctuate heavily in fiat currency terms, we choose to primarily consider the cost of running the lottery only in the context of ether and gas price, even though we will also mention the price in USD in some cases to provide context. The transaction costs depend entirely on gas usage and gas price, and can be made an arbitrarily low fraction of the ticket price if we can set the ticket price arbitrarily high. The gas price is also known for fluctuating somewhat in terms of ether, but it is simply a result of market demand for resources on the EVM. The gas price is not a fixed price, as there is essentially a bid and ask market with a spread, where transactors are bidders and miners are askers. By bidding with a low gas price, it means the probability of the transaction being included in a block is low, as miners are likely to include transactions with a higher gas price.
