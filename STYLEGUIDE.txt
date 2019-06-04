@@ -22,8 +22,9 @@ STYLE
 - Only use \texttt{} when referring to code. Don't use \texttt{} when referring to variables or math expressions where $ $ should be used.
 - Use \emph{} when introducing new words. Don't use \textbf{} as bold text is reserved for headers
 - Always have parenthesis after a function when both in math mode and \texttt{} mode. Even when you don't specify the parameters or arguments. E.g. $Hash()$ is a hash function
-- Use full words when describing functions in math mode. E.g. $Sign(SK, M)$ is preferred over $S(SK, M)$.
-- Use full words for variables that are not very common. E.g. use $salt$ rather than $s$. But letters can be used in very common variables such as $H:=Hash(C)$
+- Use full words when describing functions in math mode. E.g. $Sign(sk, m)$ is preferred over $S(sk, m)$.
+- Use full words for variables that are not very common. E.g. use $salt$ rather than $s$. But letters can be used in very common variables such as $h:=Hash(c)$
+- Capitalize function names in math mode. Use lower case for variables and upper case for other things e.g. sets.
 - Use $:=$ as the assignment operator. $=$ is the equality operator.
 - End all captions with a period '.'
 - Don't end headers with a period.
