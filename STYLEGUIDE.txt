@@ -7,7 +7,7 @@ SPELLING
 - Use hyphenation rather than split words where acceptable. E.g. so-called over so called.
 
 GRAMMAR
-- Commas around however etc. Not decided yet.
+- Use commas around 'however', 'furthermore', etc.
 - Use long hyphens '–' as a sentence break, not short hyphens '-'.
 - Long hyphens, commas, dots, semi-colons, and colons can all be used where appropriate.
 - Avoid shortening two words into one word with an apostrophe. E.g. use cannot, do not, and she is rather than can't don't and she's.
