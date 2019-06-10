@@ -6,31 +6,31 @@ Both the limits on transaction throughput and the security exposure of a higher 
 
 \subsection{Transaction throughput}
 
-Our lottery has clearly defined limits for the amount of transactions that need to be made for each participant. The amount of transactions of each type and its average gas usage is listed in Table \ref{tab:gas-usage}. Setting up the lottery requires $2N$ transactions, each participant joining takes one transaction, playing each match takes at most $4$ transactions, and the winner needs a single transaction to withdraw the prize. So the maximum amount of transactions for a successful lottery will be $7N-1$.  
+Our lottery has clearly defined limits for the amount of transactions that need to be made for each participant. The amount of transactions of each type and its average gas usage is listed in Table \ref{tab:gas-usage}. Setting up the lottery requires $N+1$ transactions, each participant joining takes one transaction for a total of $N$, playing each of the $N-1$ matches takes at most $4$ transactions each, and the winner needs a single transaction to withdraw the prize. So the maximum amount of transactions for a successful lottery will be $6N-2$.  
 
 The time interval in which the transactions need to be made is important, as the intensity of transaction demand will vary during the lifecycle of the lottery. We expect a ticket purchasing period that lasts for several days where the demand for transactions will not be high per time unit. Right after the deposit phase, when the matches on the first level can be played, there are $\frac{N}{2}$ matches that all need to be interacted with at the same time. If the time interval between match phases of these matches is too low, the blockchain will not be able to handle all the transactions that need to be made. The demand for transactions after the first match will exponentially decrease for each level as the amount of matches is halved for each level in the tournament tree.
 
-The amount of participants is $2^L$ and there are $2^{l-1}$ matches for each level if we count $l$ from $L$ at the first level matches to $1$ for the final match. The commit step and reveal step for each match require two transactions each. The amount of transactions needed for each step at each level will then be $txs\_step_{l}=2 \cdot 2^{l-1}=2^l$ – one for each remaining player. Ethereum has a transaction throughput capacity of some amount of transactions per block $tpb$. Since blocks are mined on average at a fixed rate, transactions per block is equivalent to transactions per time unit.
+The amount of participants is $2^L$ and there are $2^{l-1}$ matches for each level if we count $l$ from $L$ at the first level matches to $1$ for the final match. The commit step and reveal step for each match require two transactions each. The amount of transactions needed for each step at each level will then be $txs\_step_{l}=2 \cdot 2^{l-1}=2^l$ – one for each remaining player. Ethereum has a transaction throughput capacity of roughly some amount of transactions per block $tpb$. The space for transactions in an Ethereum block is actually limited by the sum of gas used by its transactions. The commit transactions needed to play our lottery use on average approximately 80000 gas per transaction, which is the number we will operate with. Since blocks are mined on average at a fixed rate, transactions per block is equivalent to transactions per time unit.
 Each step in a match lasts for a number of blocks $td$ which is set when each match contract is deployed. For it to be theoretically possible to perform all the transactions for each match, $td$ must be set so that $td > \frac{2^{l}}{tpb}$.
 
-Ethereum currently has about 150 transactions per block. Using this value for $tpb$, we can chart some values of what $td$ ought to be in the first level matches for various amounts of participants.
+Ethereum currently has a capacity for about 100 transactions of our type per block \footnote{As of 2019-05-07, the gas limit is 8000000 gas per block (\url{https://etherscan.io/}).}. Using this value for $tpb$, we can chart some values of what $td$ ought to be in the first level matches for various amounts of participants.
 
 \begin{table}[h]
 \centering
 \caption{Estimates of $td$ if all transactions on the blockchain are used for our lottery.}
 \label{tab:td-100percent-transactions}
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|}
 \hline
 
-N & td & td in s & td in m & td in h \\ \hline
-256 & 2 & 30 & 0,5 & 0,01 \\ \hline
-1024 & 7 & 105 & 1,8 & 0,03 \\ \hline
-4096 & 28 & 420 & 7,0 & 0,12 \\ \hline
-16384 & 110 & 1650 & 27,5 & 0,46 \\ \hline
-65536 & 437 & 6555 & 109,3 & 1,82 \\ \hline
-131072 & 874 & 13110 & 218,5 & 3,64 \\ \hline
-262144 & 1748 & 26220 & 437,0 & 7,28 \\ \hline
-1048576 & 6991 & 104865 & 1747,8 & 29,13 \\ \hline
+L & N & td & td in s & td in m & td in h \\ \hline
+8 & 256 & 3 & 45 & 0.8 & 0.01 \\ \hline
+10 & 1024 & 11 & 165 & 2.8 & 0.05 \\ \hline
+12 & 4096 & 41 & 615 & 10.3 & 0.17 \\ \hline
+14 & 16384 & 164 & 2460 & 41.0 & 0.68 \\ \hline
+16 & 65536 & 656 & 9840 & 164.0 & 2.73 \\ \hline
+17 & 131072 & 1311 & 19665 & 327.8 & 5.46 \\ \hline
+18 & 262144 & 2622 & 39330 & 655.5 & 10.93 \\ \hline
+20 & 1048576 & 10486 & 157290 & 2621.5 & 43.69 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -39,18 +39,19 @@ N & td & td in s & td in m & td in h \\ \hline
 \centering
 \caption{Estimates of $td$ if 10\% of the transactions on the blockchain are used for our lottery.}
 \label{tab:td-10percent-transactions}
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|}
 \hline
 
-N & td & td in s & td in m & td in h \\ \hline
-256 & 18 & 270 & 4,5 & 0,08 \\ \hline
-1024 & 69 & 1035 & 17,3 & 0,29 \\ \hline
-4096 & 274 & 4110 & 68,5 & 1,14 \\ \hline
-16384 & 1093 & 16395 & 273,3 & 4,55 \\ \hline
-65536 & 4370 & 65550 & 1092,5 & 18,21 \\ \hline
-131072 & 8739 & 131085 & 2184,8 & 36,41 \\ \hline
-262144 & 17477 & 262155 & 4369,3 & 72,82 \\ \hline
-1048576 & 69906 & 1048590 & 17476,5 & 291,28 \\ \hline
+L & N & td & td in s & td in m & td in h \\ \hline
+8 & 256 & 26 & 390 & 6.5 & 0.11 \\ \hline
+10 & 1024 & 103 & 1545 & 25.8 & 0.43 \\ \hline
+12 & 4096 & 410 & 6150 & 102.5 & 1.71 \\ \hline
+14 & 16384 & 1639 & 24585 & 409.8 & 6.83 \\ \hline
+16 & 65536 & 6554 & 98310 & 1638.5 & 27.31 \\ \hline
+17 & 131072 & 13108 & 196620 & 3277.0 & 54.62 \\ \hline
+18 & 262144 & 26215 & 393225 & 6553.8 & 109.23 \\ \hline
+20 & 1048576 & 104858 & 1572870 & 26214.5 & 436.91 \\ \hline
+
 
 \end{tabular}
 \end{table}
@@ -59,18 +60,18 @@ N & td & td in s & td in m & td in h \\ \hline
 \centering
 \caption{Time for the entire lottery if 10\% of the transactions on the blockchain are used for our lottery.}
 \label{tab:total-time-10percent-transactions}
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|}
 \hline
 
-N & td & time in s & time in m & time in h \\ \hline
-256 & 73 & 1095 & 18.3 & 0.30 \\ \hline
-1024 & 279 & 4185 & 69.8 & 1.16 \\ \hline
-4096 & 1100 & 16500 & 275.0 & 4.58 \\ \hline
-16384 & 4378 & 65670 & 1094.5 & 18.24 \\ \hline
-65536 & 17487 & 262305 & 4371.8 & 72.86 \\ \hline
-131072 & 34964 & 524460 & 8741.0 & 145.68 \\ \hline
-262144 & 69917 & 1048755 & 17479.3 & 291.32 \\ \hline
-1048576 & 279634 & 4194510 & 69908.5 & 1165.14 \\ \hline
+L & N & total time & time in s & time in m & time in h \\ \hline
+8 & 256 & 110 & 1650 & 27.5 & 0.46 \\ \hline
+10 & 1024 & 420 & 6300 & 105.0 & 1.75 \\ \hline
+12 & 4096 & 1650 & 24750 & 412.5 & 6.88 \\ \hline
+14 & 16384 & 6568 & 98520 & 1642.0 & 27.37 \\ \hline
+16 & 65536 & 26230 & 393450 & 6557.5 & 109.29 \\ \hline
+17 & 131072 & 52446 & 786690 & 13111.5 & 218.53 \\ \hline
+18 & 262144 & 104876 & 1573140 & 26219.0 & 436.98 \\ \hline
+20 & 1048576 & 419450 & 6291750 & 104862.5 & 1 747.71 \\ \hline
 
 \end{tabular}
 \end{table}
@@ -79,14 +80,14 @@ The most realistic scenario is that only a small fraction of all the transaction
 
 Although $td$ can be set arbitrarily high, we probably don't want the lottery to drag on for weeks before a winner is determined. It seems the lottery will face scalability issues in the order of 100000s or from $2^{17}$ participants if it is to be completed within days. The number of transactions needed will decrease exponentially with higher levels, so the first two levels will account for 75\% of the total time of the playing phase. 
 
-There are plans for Ethereum to increase the number of transactions it can handle by implementing proof-of-stake and sharding. While this might make our lottery capable of handling more participants, we don't know whether such a change in the protocol might introduce a new threat model that makes the lottery less scalable in other ways.
+There are plans for Ethereum to increase the number of transactions it can handle by implementing proof-of-stake (PoS) and sharding. While this might make our lottery capable of handling more participants, we don't know whether such a change in the protocol might introduce a new threat model that makes the lottery less scalable in other ways.
 
 \subsection{Transaction costs and max prize}
 
-Due to the size of the prize increasing linearly with the number of participants, a censorship attack by miners gets more profitable the more participants there are, which puts a limit on scalability. Even if a censorship attack is unlikely to succeed, it cannot be ignored when it can give high rewards to dishonest miners. Since the lottery prize is decided by the ticket price as well as the number of participants, the ticket price can be set so low that the total prize is not high enough to encourage manipulation by miners. The ticket price, however, is bounded to a minimum value where the transaction costs for playing the lottery get prohibitively high compared to the ticket cost. Using a gas price of 1.5 gwei and the gas usage for setting up and playing a dual match lottery found in Section \ref{sec:gas}, various charts illustrate the scalability of our implementation of the lottery.
+Due to the size of the prize increasing linearly with the number of participants, a censorship attack by miners gets more profitable the more participants there are, which puts a limit on scalability. Even if a censorship attack is unlikely to succeed, it cannot be ignored when it can give high rewards to dishonest miners. Since the lottery prize is decided by the ticket price as well as the number of participants, the ticket price can be set so low that the total prize is not high enough to encourage manipulation by miners. The ticket price, however, is bound to a minimum value where the transaction costs for playing the lottery get prohibitively high compared to the ticket cost. Using a gas price of 1.5 gwei and the gas usage for setting up and playing a dual match lottery found in Section \ref{sec:gas}, we will present various charts to illustrate the scalability of our implementation of the lottery.
 
 % Talk about the math used in the charts
-The \emph{maximum prize} is a security parameter used in this analysis. A higher maximum prize exposes more value to be lost in case of a successful attack, and so the security risk increases with a higher maximum prize. The lottery organizer and participants can judge what their tolerance for a max prize is, and we will operate with values up to 3000 ether for illustration. Another important variable is the \emph{transaction cost ratio}. This is the ratio of ticket price to transaction costs for setting up and playing a lottery, i.e. $r=\frac{gas\_usage \cdot gas\_price}{ticket\_price}$. The prize is also entirely dependent on the ticket price, as the calculations for simplicity's sake assume the organizer takes a fee equal to the transaction cost ratio times the sum of all deposits, i.e. $prize=ticket\_price \cdot N(1-r)$ and $fee=ticket\_price \cdot Nr$ where $N$ is the number of participants. The ticket price is implicitly used in the charts, as any transaction cost ratio is mapped bijectively to a price when the transaction costs are fixed.
+The \emph{maximum prize} is a security parameter used in this analysis. A higher maximum prize exposes more value to be lost in case of a successful attack, and so the security risk increases with a higher maximum prize. The lottery organizer and participants can judge what their tolerance for a max prize is, and we will operate with values up to 3000 ether for illustration. Another important variable is the \emph{transaction cost ratio}. This is the ratio o  f ticket price to transaction costs for setting up and playing a lottery, i.e. $r=\frac{gas\_usage \cdot gas\_price}{ticket\_price}$. The prize is also entirely dependent on the ticket price, as the calculations for simplicity's sake assume the organizer takes a fee equal to the transaction cost ratio times the sum of all deposits, i.e. $prize=ticket\_price \cdot N(1-r)$ and $fee=ticket\_price \cdot Nr$ where $N$ is the number of participants. The ticket price is implicitly used in the charts, as any transaction cost ratio is mapped bijectively to a price when the transaction costs are fixed.
 
 Figure \ref{fig:cost-ratio-chart} shows the ratio of the ticket price going to transaction costs as a function of number of participants and a max tolerable prize. Figure \ref{fig:prize-chart} show the prize for the lottery for a given number of participants and ratio of transactions costs to ticket price.
 The charts show us the maximum scale of the lottery under different conditions for maximum tolerable prize and ticket price going to transaction costs. With the assumptions that the transaction costs can be as much as 20\% of the ticket price, and the maximum prize being about 1500 ether, this scalability limit in terms of number of participants approaches that of the analysis of transaction throughput.
