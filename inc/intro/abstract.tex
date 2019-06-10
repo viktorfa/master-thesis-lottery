@@ -2,11 +2,11 @@
 
 %This is a summary of the thesis including the conclusion of what was discovered.
 \begin{center}
-Distributed lotteries on the internet is an interesting application with uses both in gambling and other areas. Blockchains that function as smart contract platforms can be used to both transfer value and enforce protocols for multiparty computing without resorting to a trusted intermediary. This has made it possible to design lotteries with verifiable randomness and with a guarantee of successful completion. 
+Distributed lotteries on the internet is an interesting application with uses both in gambling and other areas. Blockchains that function as smart contract platforms can be used to both transfer value and enforce protocols for multiparty computing without relying on a trusted intermediary. This has made it possible to design lotteries with verifiable randomness and with a guarantee of successful completion. 
 
-This thesis is about the implementation of a lottery based on a tournament of digital coin tosses with a design similar to the one specified by (Miller and Bentov, 2017). The implementation is made for the Ethereum blockchain, which is the leading platform for applications using smart contracts. The lottery is assessed by measuring transaction costs and transaction demand, as well as discussing the security of the lottery in context of known security issues for blockchain applications and web applications.
+This thesis is about the implementation of a lottery based on a tournament of digital coin tosses with a design similar to the one specified by (Miller and Bentov, 2017). The implementation is made for the Ethereum blockchain, which is currently the leading platform for applications using smart contracts. The lottery is assessed by measuring transaction costs and transaction demand, as well as by discussing the security of the lottery in context of known security issues for blockchain applications and web applications.
 
-We find that our implementation is likely to work securely if the number of participants does not exceed the low thousands. Several directions of further research to increase the scalability is identified and discussed. We find that the most concerning security issue is transaction censorship by a powerful collusion of miners.
+We find that our implementation is likely to work securely for up to about 100000 participants. Several directions of further research to increase the scalability is identified and discussed. We find that the most concerning security issue is transaction censorship by a powerful collusion of opportunistic miners, which might be an issue for lotteries with a very large prize.
 \end{center}
 
 \hypersetup{pageanchor=false}

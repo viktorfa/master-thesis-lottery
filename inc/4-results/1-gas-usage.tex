@@ -1,6 +1,10 @@
 \section{Gas usage and transaction costs}
 \label{sec:gas}
 
+Even though all instructions in the EVM have a fixed gas cost, the gas usage of a transaction will depend on what code is actually executed, which can vary due to loops, external state, function arguments, and conditional statements. The gas usage of the lottery was measured by running simulations which made all the transactions necessary to (i) set up the lottery, which the lottery organizer must do, and (ii) set up and play the lottery, which is the complete gas usage of the lottery paid by both the organizer and the players. The lottery can be played in different valid ways that will result in different amounts of gas used. E.g. if some players don't make commitment or reveal transactions in a match, that will reduce the overall gas usage, but the lottery will still conclude successfully. In our simulation of playing the lottery, all matches are played completely by all players, so that the maximum amount of transactions is made. This means that the gas costs measured are the upper bound of gas usage for this lottery. Due to the default winner logic in the match contracts, the lower bound of gas usage is when no \texttt{reveal()} or \texttt{commit()} transactions are made, but all other transactions are made. It is the upper bound which will be used in all calculations and analyses in this chapter's subsequent sections.
+
+We found some tiny variations in average gas usage between different runs of a simulation with the same parameters. We expected the gas usage to be equal between runs, but the variance, which can be found in Appendix \ref{appendix:simulation-data}, is so tiny we did not account for it.
+
 \begin{table}[h]
 \centering
 \caption{Average gas usage from simulation.}
@@ -8,7 +12,7 @@
 \begin{tabular}{|l|l|l|l|}
 \hline
 
-transaction & single match & dual match & \# \\ \hline
+transaction & single match & dual match & \# tx \\ \hline
 create LotteryMaster & 1087189 & 1087125 & 1 \\ \hline
 setFinalMatch & 49282 & 49282 & 1 \\ \hline
 create LotteryMatch & 2472237 & - & N-1 \\ \hline
@@ -17,9 +21,14 @@ create InternalMatch & - & 1697819 & (N/2)-1 \\ \hline
 initFirstLevelMatch & 74700 & - & N/2 \\ \hline
 initInternalMatch & 71034 & - & (N/2)-1 \\ \hline
 deposit & 73925 & 73925 & N \\ \hline
-commit & 83548 & 88668 & 2(N-1) \\ \hline
-reveal & 43035 & 42882 & 2(N-1) \\ \hline
+commit & 83548 & - & 2(N-1) \\ \hline
+commit (FirstLevelMatch) & - & 76611 & N \\ \hline
+commit (InternalMatch) & - & 88675 & N-2 \\ \hline
+reveal & 43035 & - & 2(N-1) \\ \hline
+reveal (FirstLevelMatch) & - & 42884 & N \\ \hline
+reveal (InternalMatch) & - & 42884 & N-2 \\ \hline
 withdraw & 39277 & 39177 & 1 \\ \hline
+
 
 \end{tabular}
 \end{table}
@@ -101,8 +110,8 @@ The dual match design compared to the single match design uses 50\% less gas to 
 
 As was expected from inspecting the smart contracts, the gas usage increases linearly with the number of participants. Even though the gas per participant also increases by a minuscule amount as the number of participants grow, this amount goes towards zero with more participants. For simulating the entire lifecycle of a lottery, this can be explained by the \texttt{deposit()} function which keeps expanding a dynamic array as players join. 
 
-We will use the measurements for dual matches from Table \ref{tab:gas-usage} in calculations later in this chapter to analyze ticket pricing and scalability. By using the amount of transactions necessary of each type, we see that the gas usage for a lottery of $N$ players can be expressed as for just setting up the lottery $\frac{3391547 \cdot N}{2} - 561412$, and $\frac{4065677 \cdot N}{2} - 785375$ for setting up and playing the entire lottery.
+We will use the measurements for dual matches from Table \ref{tab:gas-usage} in calculations later in this chapter to analyze ticket pricing and scalability. By using the amount of transactions necessary of each type, we see that the gas usage for a lottery of $N$ players can be expressed as for just setting up the lottery $\frac{3391547 \cdot N}{2} - 561412$, and $\frac{4041505 \cdot N}{2} - 785353$ as the upper bound, i.e. all matches are played completely, for setting up and playing the entire lottery, while the lower bound, i.e. all matches are forfeited, is $\frac{3539397 \cdot N}{2} - 522235$.
 
-The bulk of the transaction costs of a lottery is from setting up all the contracts, which must be done by the lottery organizer. The setup cost is 84\% of the total transaction costs for the 512 player simulation for dual match contracts. We see that by far most gas is spent on deploying each individual match contract, which must be done $N-1$ times. This cost was significantly decreased by splitting the match contracts into two types, the \texttt{FirstLevelMatch} and \texttt{InternalMatch} contracts. This is because each variable and each bit of bytecode contributes to the gas usage when deploying contracts. Decreasing the number of methods, decreasing the number and size of variables, and decreasing the number of instructions, i.e. roughly lines of code, will decrease the gas usage. Since each match contract is not interacted with much – at most four times, two commits and two reveals – it seems wasteful to spend so much gas on deploying them on the blockchain permanently. This is a well-known issue, and it is possible to deduplicate common behaviour by using patterns involving \emph{library contracts} and \emph{proxy contracts}. The article in~\cite{lu_solidity_2018} demonstrate that gas usage for deploying contracts can decrease as much as 50\% by using these patterns. It could also be possible to do away with the dedicated match contracts completely, and handle everything in the master contract, but we leave that to future work or a practical implementation.
+The bulk of the transaction costs of a lottery is from setting up all the contracts, which must be done by the lottery organizer. The setup cost is 84\% of the total transaction costs for the 512 player simulation for dual match contracts, and would be even more if not all players completer their matches. We see that by far most gas is spent on deploying each individual match contract, which must be done $N-1$ times. This cost was significantly decreased by splitting the match contracts into two types, the \texttt{FirstLevelMatch} and \texttt{InternalMatch} contracts. This is because each variable and each bit of bytecode contributes to the gas usage when deploying contracts. Decreasing the number of methods, decreasing the number and size of variables, and decreasing the number of instructions, i.e. roughly lines of code, will decrease the gas usage. Since each match contract is not interacted with much – at most four times, two commits and two reveals – it seems wasteful to spend so much gas on deploying them on the blockchain permanently. This is a well-known issue, and it is possible to deduplicate common behaviour by using patterns involving \emph{library contracts} and \emph{proxy contracts}. The article in~\cite{lu_solidity_2018} demonstrate that gas usage for deploying contracts can decrease as much as 50\% by using these patterns. It could also be possible to do away with the dedicated match contracts completely, and handle everything in the master contract, but we leave that to future work or a practical implementation.
 
 While the price of ether and by extension gas is known to fluctuate heavily in fiat currency terms, we choose to primarily consider the cost of running the lottery only in the context of ether and gas price, even though we will also mention the price in USD in some cases to provide context. The transaction costs depend entirely on gas usage and gas price, and can be made an arbitrarily low fraction of the ticket price if we can set the ticket price arbitrarily high. The gas price is also known for fluctuating somewhat in terms of ether, but it is simply a result of market demand for resources on the EVM.

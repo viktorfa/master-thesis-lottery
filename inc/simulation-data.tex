@@ -1,0 +1,35 @@
+\chapter{Simulation data}
+\label{appendix:simulation-data}
+
+\section{Gas usage}
+\label{sec:simulation-results}
+
+\subsection*{Steps to replicate}
+Using Git repository located at~\url{https://github.com/viktorfa/lottery-truffle.git}. Dual match simulations from Git commit \texttt{36ee7818}. Single match simulations from Git commit \texttt{63747577}. Variable \texttt{L} in \texttt{tests/Lottery.simulate.js} set to {8} for both simulation suites. Simulations run with command \texttt{truffle test ./test/Lottery.simulate.js} with a Ganache Ethereum RPC client running.
+
+\subsection*{Results}
+
+\begin{table}[h]
+\centering
+\caption{Statistics from dual match simulation with 256 participants.}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+
+Stats n=5 &  &  &  &  &  \\ \hline
+Contract & Method & Mean & Stdev & Range & Stdev/Mean \\ \hline
+FirstLevelMatch & commit & 76611 & 0 & 0 & 0 \\ \hline
+FirstLevelMatch & reveal & 42883 & 0.8367 & 1.25 & 0.00001951 \\ \hline
+InternalMatch & commit & 88672 & 2.51 & 7 & 0.00002831 \\ \hline
+InternalMatch & reveal & 42883 & 1.673 & 4 & 0.00003902 \\ \hline
+LotteryMaster & deposit & 73925 & 0 & 0 & 0 \\ \hline
+LotteryMaster & setFinalMatch & 49282 & 0 & 0 & 0 \\ \hline
+LotteryMaster & withdraw & 39171 & 5.477 & 10 & 0.0001398 \\ \hline
+Deployments &  &  &  &  &  \\ \hline
+FirstLevelMatch &  & 1693715 & 28.62 & 64 & 0.0000169 \\ \hline
+InternalMatch &  & 1697002 & 1830 & 1026 & 0.0010785 \\ \hline
+LotteryMaster &  & 1693664 & 0 & 0 & 0 \\ \hline
+Total set up &  & 433555262 & 3534 & 2288 & 0.00000815 \\ \hline
+Total set up and play &  & 516524423 & 3428 & 2917 & 0.00000664 \\ \hline
+
+\end{tabular}
+\end{table}
