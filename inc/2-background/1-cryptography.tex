@@ -3,7 +3,7 @@
 
 \subsection{Secure hash functions}
 
-Hash functions are deterministic functions that take input of arbitrary finite length, a \emph{preimage}, and produce an output of fixed length, a \emph{hash}~\cite[p.~153]{lindell2014introduction}. When the preimage is much larger than the output length, the hash function is effectively a lossy compress function. A hash function can be used for different purposes, and can be designed to have properties fit for its purpose. A secure hash function is one that has properties that makes it useful for a range of cryptographic uses. 
+Hash functions are deterministic functions that take input of arbitrary finite length, a \emph{preimage}, and produce an output of fixed length, a \emph{hash}~\cite[p.~153]{lindell2014introduction}. When the length of a preimage is much larger than the output length, the hash function is effectively a lossy compress function. A hash function can be used for various purposes, and can be designed to have properties fit for its purpose. A secure hash function is one that has properties that makes it useful for a range of cryptographic uses. 
 
 \subsubsection{Properties of secure hash functions}
 
@@ -18,13 +18,13 @@ A secure hash function is a one-way function in that it should not be possible t
 
 \noindent
 {\bf Avalanche effect.}
-The avalanche effect is a term used to describe that a small change in a function's input will have a large effect on its output. A strict criterion for the avalanche effect is that any change in the input of a hash function causes each bit in the output to flip with a probability of 0.5. If similar hashes are more likely to come from similar preimages, this makes it possible to make good guesses when attempting to reverse a hash function by employing statistical analysis~\cite{wang_cryptanalysis_2005}.
+The avalanche effect is a term used to describe that a small change in a function's input will have a large effect on its output. A strict criterion for the avalanche effect is that any change in the input of a hash function causes each bit in the output to flip with a probability of 0.5. If similar hashes are more likely to come from similar preimages, it would be possible to make good guesses when attempting to reverse a hash function by employing statistical analysis, as has been demonstrated in works such as~\cite{wang_cryptanalysis_2005}.
 
 \subsubsection{Some applications of secure hash functions}
 
 \noindent
 {\bf Hashing to verify message integrity and authenticity.}
-Hash functions can be used to verify the integrity of a message~\cite[p.~158--164]{lindell2014introduction}. We assume one party, Alice, has received the hash $h$ of a long message $m$ from a trusted party. Another party Alice does not trust, Bob, claims to have $m$ and offers to transmit it to Alice. Since Alice knows the hash of the message, she can retrieve the message from Bob and independently verify the message's integrity and authenticity by verifying that $Hash(m) = h$. This makes it possible to e.g. retrieve large files from untrusted parties while only retrieving small hashes from trusted parties..
+Hash functions can be used to verify the integrity of a message~\cite[p.~158--164]{lindell2014introduction}. We assume one party, Alice, has received the hash $h$ of a long message $m$ from a trusted party. Another party Alice does not trust, Bob, claims to have $m$ and offers to transmit it to Alice. Since Alice knows the hash of the message, she can retrieve the message from Bob and independently verify the message's integrity and authenticity by verifying that $Hash(m) = h$. This makes it possible to e.g. retrieve large files from untrusted parties while only retrieving small hashes from trusted parties.
 
 \noindent
 {\bf Hashes as digital fingerprints.}

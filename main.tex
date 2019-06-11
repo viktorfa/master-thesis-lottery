@@ -103,7 +103,7 @@
 
 \input{inc/DaimData.tex} % this is the file which contains all the details about your thesis
 \makefrontpages % make the frontpages
-\input{inc/intro/_index.tex}
+\input{inc/0-intro/_index.tex}
 
 \tableofcontents
 
@@ -121,15 +121,12 @@
 \ifthenelse{\boolean{HarvardCitations}}{%
 	\bibliographystyle{agsm} % used for Harvard style references. Names - Humanities & Interaction Design
 }{%
-	\bibliographystyle{ntnuthesis/ntnuthesis} %used for Vancover style references. Numbers - Computer Science & Physics
+	\bibliographystyle{ntnuthesis/ntnuthesis} %used for Vancouver style references. Numbers - Computer Science & Physics
 }
 
 \bibliography{bibliography}
 
 \appendix
-\include{inc/full-listings}
-\include{inc/simulation-data}
-%\include{inc/rawdata}
-%\include{inc/timetable}
+\include{inc/7-appendix/_index}
 
 \end{document}
